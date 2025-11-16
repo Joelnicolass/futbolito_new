@@ -3,6 +3,7 @@ import 'package:futbolitonew/core/di/register_dependencies.dart';
 import 'package:futbolitonew/features/auth/domain/entities/user.dart';
 import 'package:futbolitonew/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:futbolitonew/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
+import 'package:futbolitonew/features/auth/domain/usecases/sign_in_with_apple_usecase.dart';
 import 'package:futbolitonew/features/auth/domain/usecases/sign_out_usecase.dart';
 
 part 'auth_provider.g.dart';
@@ -22,6 +23,15 @@ class AuthNotifier extends _$AuthNotifier {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final useCase = getIt<SignInWithGoogleUseCase>();
+      return await useCase();
+    });
+  }
+
+  /// Inicia sesión con Apple
+  Future<void> signInWithApple() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final useCase = getIt<SignInWithAppleUseCase>();
       return await useCase();
     });
   }

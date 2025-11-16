@@ -17,9 +17,7 @@ class HomePage extends ConsumerWidget {
         child: TextButton(
           onPressed: () async {
             await ref.read(authProvider.notifier).signOut();
-            if (context.mounted) {
-              context.go('/login');
-            }
+            if (context.mounted) context.go('/login');
           },
           child: const Text('Logout'),
         ),

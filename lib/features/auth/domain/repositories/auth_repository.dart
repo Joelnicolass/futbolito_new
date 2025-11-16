@@ -7,6 +7,10 @@ abstract class AuthRepository {
   /// Retorna el usuario autenticado o lanza una excepción
   Future<User> signInWithGoogle();
 
+  /// Inicia sesión con Apple
+  /// Retorna el usuario autenticado o lanza una excepción
+  Future<User> signInWithApple();
+
   /// Obtiene el usuario actual autenticado
   /// Retorna null si no hay usuario autenticado
   Future<User?> getCurrentUser();
@@ -14,4 +18,3 @@ abstract class AuthRepository {
   /// Cierra sesión del usuario actual
   Future<void> signOut();
 }
-

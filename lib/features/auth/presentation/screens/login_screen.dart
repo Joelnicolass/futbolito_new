@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
 import 'package:futbolitonew/features/auth/presentation/widgets/google_sign_in_button.dart';
+import 'package:futbolitonew/features/auth/presentation/widgets/apple_sign_in_button.dart';
 import 'package:go_router/go_router.dart';
 
 /// Pantalla de login
@@ -51,6 +52,15 @@ class _LoginContent extends ConsumerWidget {
                   },
                   isLoading: false,
                 ),
+                const SizedBox(height: 16),
+                TargetPlatform.iOS == Theme.of(context).platform
+                    ? AppleSignInButton(
+                        onPressed: () {
+                          ref.read(authProvider.notifier).signInWithApple();
+                        },
+                        isLoading: false,
+                      )
+                    : SizedBox(),
               ],
             ),
           ),
@@ -77,6 +87,8 @@ class _LoadingContent extends StatelessWidget {
                 const _LoginHeader(),
                 const SizedBox(height: 64),
                 GoogleSignInButton(onPressed: () {}, isLoading: true),
+                const SizedBox(height: 16),
+                AppleSignInButton(onPressed: () {}, isLoading: true),
               ],
             ),
           ),
@@ -128,6 +140,13 @@ class _ErrorContent extends ConsumerWidget {
                 GoogleSignInButton(
                   onPressed: () {
                     ref.read(authProvider.notifier).signInWithGoogle();
+                  },
+                  isLoading: false,
+                ),
+                const SizedBox(height: 16),
+                AppleSignInButton(
+                  onPressed: () {
+                    ref.read(authProvider.notifier).signInWithApple();
                   },
                   isLoading: false,
                 ),

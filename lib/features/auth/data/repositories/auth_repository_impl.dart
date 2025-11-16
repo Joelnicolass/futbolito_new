@@ -32,6 +32,27 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<User> signInWithApple() async {
+    try {
+      final userCredential = await dataSource.signInWithApple();
+      final firebaseUser = userCredential.user;
+
+      if (firebaseUser == null) {
+        throw Exception('No se pudo obtener la información del usuario');
+      }
+
+      return UserModel.fromFirebaseUser(
+        firebaseUser.uid,
+        firebaseUser.email ?? '',
+        displayName: firebaseUser.displayName,
+        photoUrl: firebaseUser.photoURL,
+      ).toEntity();
+    } catch (e) {
+      throw Exception('Error al iniciar sesión con Apple: ${e.toString()}');
+    }
+  }
+
+  @override
   Future<User?> getCurrentUser() async {
     final firebaseUser = dataSource.getCurrentFirebaseUser();
 
@@ -56,4 +77,3 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 }
-
