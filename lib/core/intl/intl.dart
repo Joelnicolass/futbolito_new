@@ -1,0 +1,19 @@
+abstract class Internationalization {
+  Map<Translate, String> get languageMap;
+
+  String translate(Translate key) {
+    return languageMap[key] ?? 'NO_TRANSLATION';
+  }
+}
+
+enum Translate { appName, login, logout, welcome }
+
+class SpanishInternationalization extends Internationalization {
+  @override
+  Map<Translate, String> get languageMap => {
+    Translate.appName: "Futbolito",
+    Translate.login: "Iniciar sesión",
+    Translate.logout: "Cerrar sesión",
+    Translate.welcome: "Bienvenido",
+  };
+}

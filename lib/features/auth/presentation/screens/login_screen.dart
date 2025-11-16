@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:futbolitonew/core/di/register_dependencies.dart';
+import 'package:futbolitonew/core/intl/intl.dart';
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
 import 'package:futbolitonew/features/auth/presentation/widgets/google_sign_in_button.dart';
 import 'package:futbolitonew/features/auth/presentation/widgets/apple_sign_in_button.dart';
@@ -165,6 +167,8 @@ class _LoginHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = getIt<Internationalization>().translate;
+
     return Column(
       children: [
         Icon(
@@ -173,8 +177,8 @@ class _LoginHeader extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
         const SizedBox(height: 24),
-        const Text(
-          'Futbolito',
+        Text(
+          t(Translate.appName),
           style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
@@ -185,4 +189,8 @@ class _LoginHeader extends StatelessWidget {
       ],
     );
   }
+}
+
+extension on Type {
+  get languageMap => null;
 }
