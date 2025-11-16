@@ -15,6 +15,8 @@ class AuthRemoteDataSource {
           GoogleSignIn(
             // Web Client ID necesario para Android
             // Obtenerlo de: Firebase Console > Project Settings > General > Web Client ID
+            //clientId:
+            //    '487331532356-fba19vqkkj3t288i87jkblononmr8cjj.apps.googleusercontent.com',
             scopes: ['email'],
           );
 
