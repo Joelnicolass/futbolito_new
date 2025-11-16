@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "487331532356-0e7eaqfrmasg3t5o28gkmnrj921a609k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.futbolitonew",
+            "certificate_hash": "2e54a72a0711bd04aef02f467eb870673cf7aade"
+          }
+        },
+        {
           "client_id": "487331532356-fba19vqkkj3t288i87jkblononmr8cjj.apps.googleusercontent.com",
           "client_type": 3
         }

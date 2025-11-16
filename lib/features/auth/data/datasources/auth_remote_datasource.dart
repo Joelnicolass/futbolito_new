@@ -7,11 +7,15 @@ class AuthRemoteDataSource {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  AuthRemoteDataSource({
-    FirebaseAuth? firebaseAuth,
-    GoogleSignIn? googleSignIn,
-  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn();
+  AuthRemoteDataSource({FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
+    : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+      _googleSignIn =
+          googleSignIn ??
+          GoogleSignIn(
+            // Web Client ID necesario para Android
+            // Obtenerlo de: Firebase Console > Project Settings > General > Web Client ID
+            scopes: ['email'],
+          );
 
   /// Inicia sesión con Google
   /// Retorna el UserCredential de Firebase
@@ -44,10 +48,7 @@ class AuthRemoteDataSource {
 
   /// Cierra sesión
   Future<void> signOut() async {
-    await Future.wait([
-      _firebaseAuth.signOut(),
-      _googleSignIn.signOut(),
-    ]);
+    await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
   }
 
   /// Stream de cambios de autenticación
@@ -55,4 +56,3 @@ class AuthRemoteDataSource {
     return _firebaseAuth.authStateChanges();
   }
 }
-

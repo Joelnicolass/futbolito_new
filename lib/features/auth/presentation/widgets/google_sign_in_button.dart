@@ -30,17 +30,14 @@ class GoogleSignInButton extends StatelessWidget {
             : const Icon(Icons.account_circle, size: 24),
         label: Text(
           isLoading ? 'Iniciando sesión...' : 'Continuar con Google',
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black87,
-          elevation: 1,
+          elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(100),
             side: BorderSide(color: Colors.grey.shade300),
           ),
         ),
@@ -48,4 +45,3 @@ class GoogleSignInButton extends StatelessWidget {
     );
   }
 }
-
