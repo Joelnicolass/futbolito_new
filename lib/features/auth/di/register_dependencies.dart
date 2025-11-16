@@ -1,0 +1,34 @@
+import 'package:futbolitonew/core/di/register_dependencies.dart';
+import 'package:futbolitonew/features/auth/data/datasources/auth_remote_datasource.dart';
+import 'package:futbolitonew/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:futbolitonew/features/auth/domain/repositories/auth_repository.dart';
+import 'package:futbolitonew/features/auth/domain/usecases/get_current_user_usecase.dart';
+import 'package:futbolitonew/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
+import 'package:futbolitonew/features/auth/domain/usecases/sign_out_usecase.dart';
+
+/// Registra todas las dependencias de la feature de autenticación
+/// Este método debe ser llamado desde configureDependencies en core/di/register_dependencies.dart
+void authRegisterDependencies() {
+  /// DataSources
+  getIt.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSource(),
+  );
+
+  /// Repositories
+  getIt.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(getIt<AuthRemoteDataSource>()),
+  );
+
+  /// Use Cases
+  getIt.registerLazySingleton<SignInWithGoogleUseCase>(
+    () => SignInWithGoogleUseCase(getIt<AuthRepository>()),
+  );
+
+  getIt.registerLazySingleton<GetCurrentUserUseCase>(
+    () => GetCurrentUserUseCase(getIt<AuthRepository>()),
+  );
+
+  getIt.registerLazySingleton<SignOutUseCase>(
+    () => SignOutUseCase(getIt<AuthRepository>()),
+  );
+}

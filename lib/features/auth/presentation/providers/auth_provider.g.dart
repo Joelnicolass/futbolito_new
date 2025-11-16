@@ -8,52 +8,6 @@ part of 'auth_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Provider del repositorio de autenticación
-
-@ProviderFor(authRepository)
-const authRepositoryProvider = AuthRepositoryProvider._();
-
-/// Provider del repositorio de autenticación
-
-final class AuthRepositoryProvider
-    extends $FunctionalProvider<AuthRepository, AuthRepository, AuthRepository>
-    with $Provider<AuthRepository> {
-  /// Provider del repositorio de autenticación
-  const AuthRepositoryProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'authRepositoryProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$authRepositoryHash();
-
-  @$internal
-  @override
-  $ProviderElement<AuthRepository> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  AuthRepository create(Ref ref) {
-    return authRepository(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AuthRepository value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AuthRepository>(value),
-    );
-  }
-}
-
-String _$authRepositoryHash() => r'e048fa7d203034dc290f50475bf46c499a0c9ecf';
-
 /// Provider del caso de uso de inicio de sesión con Google
 
 @ProviderFor(signInWithGoogleUseCase)
@@ -105,7 +59,106 @@ final class SignInWithGoogleUseCaseProvider
 }
 
 String _$signInWithGoogleUseCaseHash() =>
-    r'dc90c4b43fcbfc22a70458e8591d8f4c2d9bc76b';
+    r'965538c661cf0ad29b5ca4509082eb3af2c41a0d';
+
+/// Provider del caso de uso para obtener usuario actual
+
+@ProviderFor(getCurrentUserUseCase)
+const getCurrentUserUseCaseProvider = GetCurrentUserUseCaseProvider._();
+
+/// Provider del caso de uso para obtener usuario actual
+
+final class GetCurrentUserUseCaseProvider
+    extends
+        $FunctionalProvider<
+          GetCurrentUserUseCase,
+          GetCurrentUserUseCase,
+          GetCurrentUserUseCase
+        >
+    with $Provider<GetCurrentUserUseCase> {
+  /// Provider del caso de uso para obtener usuario actual
+  const GetCurrentUserUseCaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'getCurrentUserUseCaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$getCurrentUserUseCaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<GetCurrentUserUseCase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  GetCurrentUserUseCase create(Ref ref) {
+    return getCurrentUserUseCase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GetCurrentUserUseCase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GetCurrentUserUseCase>(value),
+    );
+  }
+}
+
+String _$getCurrentUserUseCaseHash() =>
+    r'2fb99a898a909efc085eb27a447f110890b03064';
+
+/// Provider del caso de uso para cerrar sesión
+
+@ProviderFor(signOutUseCase)
+const signOutUseCaseProvider = SignOutUseCaseProvider._();
+
+/// Provider del caso de uso para cerrar sesión
+
+final class SignOutUseCaseProvider
+    extends $FunctionalProvider<SignOutUseCase, SignOutUseCase, SignOutUseCase>
+    with $Provider<SignOutUseCase> {
+  /// Provider del caso de uso para cerrar sesión
+  const SignOutUseCaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'signOutUseCaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$signOutUseCaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<SignOutUseCase> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SignOutUseCase create(Ref ref) {
+    return signOutUseCase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SignOutUseCase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SignOutUseCase>(value),
+    );
+  }
+}
+
+String _$signOutUseCaseHash() => r'd405ca6556edf2bac6c98685b4c001f82237ea8e';
 
 /// Provider del estado de autenticación
 
@@ -135,7 +188,7 @@ final class AuthNotifierProvider
   AuthNotifier create() => AuthNotifier();
 }
 
-String _$authNotifierHash() => r'35d00e980db1782c3d07ced667f5d790784eccb8';
+String _$authNotifierHash() => r'0a0f4b4327763bfe5c58cf78f481a259037230f3';
 
 /// Provider del estado de autenticación
 
