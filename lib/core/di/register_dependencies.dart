@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:futbolitonew/core/environment/env.dart';
-import 'package:futbolitonew/core/environment/env_entity.dart';
+import 'package:futbolitonew/common/domain/entities/environment_entity.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 import 'package:futbolitonew/features/auth/di/register_dependencies.dart'
     as auth_di;

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:futbolitonew/common/presentation/widgets/scaffold_foundation/scaffold_foundation_widget.dart';
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
+import 'package:futbolitonew/core/di/register_dependencies.dart';
+import 'package:futbolitonew/core/intl/intl.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
@@ -8,10 +11,12 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
+    final t = getIt<Internationalization>().translate;
+    
+    return ScaffoldFoundation(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Home Page'),
+        title: Text(t(Translate.homePage)),
       ),
       body: Center(
         child: TextButton(
@@ -19,7 +24,7 @@ class HomePage extends ConsumerWidget {
             await ref.read(authProvider.notifier).signOut();
             if (context.mounted) context.go('/login');
           },
-          child: const Text('Logout'),
+          child: Text(t(Translate.logout)),
         ),
       ),
     );

@@ -7,8 +7,6 @@ import 'package:futbolitonew/features/auth/domain/usecases/sign_in_with_google_u
 import 'package:futbolitonew/features/auth/domain/usecases/sign_in_with_apple_usecase.dart';
 import 'package:futbolitonew/features/auth/domain/usecases/sign_out_usecase.dart';
 
-/// Registra todas las dependencias de la feature de autenticación
-/// Este método debe ser llamado desde configureDependencies en core/di/register_dependencies.dart
 void authRegisterDependencies() {
   /// DataSources
   getIt.registerLazySingleton<AuthRemoteDataSource>(

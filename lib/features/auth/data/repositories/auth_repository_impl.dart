@@ -3,8 +3,6 @@ import 'package:futbolitonew/features/auth/data/models/user_model.dart';
 import 'package:futbolitonew/features/auth/domain/entities/user.dart';
 import 'package:futbolitonew/features/auth/domain/repositories/auth_repository.dart';
 
-/// Implementación del repositorio de autenticación
-/// Conecta la capa de dominio con la capa de datos
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource dataSource;
 

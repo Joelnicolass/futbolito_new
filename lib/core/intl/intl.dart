@@ -6,7 +6,7 @@ abstract class Internationalization {
   }
 }
 
-enum Translate { appName, login, logout, welcome }
+enum Translate { appName, login, logout, welcome, loading, homePage }
 
 class SpanishInternationalization extends Internationalization {
   @override
@@ -15,5 +15,7 @@ class SpanishInternationalization extends Internationalization {
     Translate.login: "Iniciar sesión",
     Translate.logout: "Cerrar sesión",
     Translate.welcome: "Bienvenido",
+    Translate.loading: "Cargando...",
+    Translate.homePage: "Página de Inicio",
   };
 }

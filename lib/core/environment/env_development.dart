@@ -1,4 +1,4 @@
-import 'package:futbolitonew/core/environment/env_entity.dart';
+import 'package:futbolitonew/common/domain/entities/environment_entity.dart';
 
 class EnvironmentDev implements IEnvironment {
   @override

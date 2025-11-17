@@ -8,17 +8,14 @@ import 'package:futbolitonew/features/auth/domain/usecases/sign_out_usecase.dart
 
 part 'auth_provider.g.dart';
 
-/// Provider del estado de autenticación
 @riverpod
 class AuthNotifier extends _$AuthNotifier {
   @override
   Future<User?> build() async {
-    // Cargar usuario actual al inicializar
     final useCase = getIt<GetCurrentUserUseCase>();
     return await useCase();
   }
 
-  /// Inicia sesión con Google
   Future<void> signInWithGoogle() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
@@ -27,7 +24,6 @@ class AuthNotifier extends _$AuthNotifier {
     });
   }
 
-  /// Inicia sesión con Apple
   Future<void> signInWithApple() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
@@ -36,10 +32,8 @@ class AuthNotifier extends _$AuthNotifier {
     });
   }
 
-  /// Cierra sesión
   Future<void> signOut() async {
     final useCase = getIt<SignOutUseCase>();
     await useCase();
-    // El stream de authStateChanges actualizará el estado automáticamente
   }
 }

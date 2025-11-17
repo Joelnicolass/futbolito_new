@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Botón personalizado para iniciar sesión con Google
 class GoogleSignInButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool isLoading;
