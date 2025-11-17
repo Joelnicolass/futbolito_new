@@ -8,15 +8,12 @@ part of 'auth_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Provider del estado de autenticación
 
 @ProviderFor(AuthNotifier)
 const authProvider = AuthNotifierProvider._();
 
-/// Provider del estado de autenticación
 final class AuthNotifierProvider
     extends $AsyncNotifierProvider<AuthNotifier, User?> {
-  /// Provider del estado de autenticación
   const AuthNotifierProvider._()
     : super(
         from: null,
@@ -37,8 +34,6 @@ final class AuthNotifierProvider
 }
 
 String _$authNotifierHash() => r'bba13e7d8eff7293eaa796ae874c968d6ef6ab55';
-
-/// Provider del estado de autenticación
 
 abstract class _$AuthNotifier extends $AsyncNotifier<User?> {
   FutureOr<User?> build();

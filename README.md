@@ -321,8 +321,8 @@ matches/
 ```
 
 ---
-\
----
+
+## \
 
 ## 🔄 Flujos de Usuario
 
@@ -512,6 +512,8 @@ flutter pub get
 
 # Generar código (Freezed, Json Serializable)
 flutter pub run build_runner build --delete-conflicting-outputs
+
+fvm flutter pub run build_runner build --delete-conflicting-outputs --enable-experiment=dot-shorthands
 ```
 
 ### Configuración Firebase
