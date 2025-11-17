@@ -1,6 +1,6 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:futbolitonew/common/domain/entities/padding_foundation_entity.dart';
+import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
+import 'package:futbolitonew/common/presentation/widgets/scaffold_foundation/scaffold_foundation_widget.dart';
 import 'package:futbolitonew/core/di/register_dependencies.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 
@@ -11,17 +11,15 @@ class LoadingFullScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = getIt<Internationalization>().translate;
 
-    return Scaffold(
-      body: FadeIn(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: .center,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: PaddingFoundation.medium.value),
-              Text(t(Translate.loading)),
-            ],
-          ),
+    return ScaffoldFoundation(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: .center,
+          children: [
+            CircularProgressIndicator(),
+            SpacingFoundation.md.spacer,
+            Text(t(Translate.loading)),
+          ],
         ),
       ),
     );

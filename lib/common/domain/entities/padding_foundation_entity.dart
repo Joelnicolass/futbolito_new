@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum PaddingFoundation { small, medium, large }
 
 extension PaddingFoundationExtension on PaddingFoundation {
@@ -11,4 +13,14 @@ extension PaddingFoundationExtension on PaddingFoundation {
         return 24.0;
     }
   }
+}
+
+extension PaddingFoundationAllExtension on PaddingFoundation {
+  EdgeInsets get all => EdgeInsets.all(value);
+  EdgeInsets get left => EdgeInsets.only(left: value);
+  EdgeInsets get right => EdgeInsets.only(right: value);
+  EdgeInsets get top => EdgeInsets.only(top: value);
+  EdgeInsets get bottom => EdgeInsets.only(bottom: value);
+  EdgeInsets get horizontal => EdgeInsets.symmetric(horizontal: value);
+  EdgeInsets get vertical => EdgeInsets.symmetric(vertical: value);
 }

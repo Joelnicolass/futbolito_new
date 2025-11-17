@@ -16,6 +16,6 @@ class SpanishInternationalization extends Internationalization {
     Translate.logout: "Cerrar sesión",
     Translate.welcome: "Bienvenido",
     Translate.loading: "Cargando...",
-    Translate.homePage: "Página de Inicio",
+    Translate.homePage: "Home",
   };
 }

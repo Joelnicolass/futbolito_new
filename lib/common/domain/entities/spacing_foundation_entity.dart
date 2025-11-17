@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum SpacingFoundation { xs, sm, md, lg, xl }
 
 extension SpacingExtension on SpacingFoundation {
@@ -15,4 +17,8 @@ extension SpacingExtension on SpacingFoundation {
         return 32.0;
     }
   }
+}
+
+extension SpacerExtension on SpacingFoundation {
+  SizedBox get spacer => SizedBox(height: value);
 }
