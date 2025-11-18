@@ -52,3 +52,4 @@ web/
 windows/
 
 lib/core/environment/env.dart
+lambdas/

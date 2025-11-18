@@ -74,4 +74,80 @@ class AuthRepositoryImpl implements AuthRepository {
       throw Exception('Error al cerrar sesión: ${e.toString()}');
     }
   }
+
+  @override
+  Future<User> registerUser({
+    required String firebaseUid,
+    required String email,
+    String? displayName,
+    String? photoUrl,
+  }) async {
+    try {
+      final supabaseUser = await dataSource.registerUserInSupabase(
+        firebaseUid: firebaseUid,
+        email: email,
+        displayName: displayName,
+        photoUrl: photoUrl,
+      );
+
+      return UserModel(
+        id: supabaseUser['id'].toString(),
+        email: supabaseUser['email'] as String,
+        displayName: supabaseUser['display_name'] as String?,
+        photoUrl: supabaseUser['photo_url'] as String?,
+      ).toEntity();
+    } catch (e) {
+      throw Exception('Error al registrar usuario: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<User?> getUserFromSupabase(String firebaseUid) async {
+    try {
+      final supabaseUser = await dataSource.getUserFromSupabase(firebaseUid);
+
+      if (supabaseUser == null) {
+        return null;
+      }
+
+      return UserModel(
+        id: supabaseUser['id'].toString(),
+        email: supabaseUser['email'] as String,
+        displayName: supabaseUser['display_name'] as String?,
+        photoUrl: supabaseUser['photo_url'] as String?,
+      ).toEntity();
+    } catch (e) {
+      throw Exception('Error al obtener usuario de Supabase: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<void> registerFcmToken({
+    required String userId,
+    required String token,
+  }) async {
+    try {
+      await dataSource.registerFcmToken(userId: userId, token: token);
+    } catch (e) {
+      throw Exception('Error al registrar FCM token: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<void> deleteFcmToken(String token) async {
+    try {
+      await dataSource.deleteFcmToken(token);
+    } catch (e) {
+      throw Exception('Error al eliminar FCM token: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<void> deleteUserFcmTokens(String userId) async {
+    try {
+      await dataSource.deleteUserFcmTokens(userId);
+    } catch (e) {
+      throw Exception('Error al eliminar tokens del usuario: ${e.toString()}');
+    }
+  }
 }

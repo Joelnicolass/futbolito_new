@@ -1,3 +1,4 @@
+import 'package:futbolitonew/features/auth/domain/usecases/register_user_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:futbolitonew/core/di/register_dependencies.dart';
 import 'package:futbolitonew/features/auth/domain/entities/user.dart';
@@ -19,16 +20,36 @@ class AuthNotifier extends _$AuthNotifier {
   Future<void> signInWithGoogle() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final useCase = getIt<SignInWithGoogleUseCase>();
-      return await useCase();
+      final useCaseSignIn = getIt<SignInWithGoogleUseCase>();
+      final useCaseRegisterUser = getIt<RegisterUserUseCase>();
+      final user = await useCaseSignIn();
+
+      await useCaseRegisterUser(
+        firebaseUid: user.id,
+        email: user.email,
+        displayName: user.displayName,
+        photoUrl: user.photoUrl,
+      );
+
+      return user;
     });
   }
 
   Future<void> signInWithApple() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final useCase = getIt<SignInWithAppleUseCase>();
-      return await useCase();
+      final useCaseSignIn = getIt<SignInWithAppleUseCase>();
+      final useCaseRegisterUser = getIt<RegisterUserUseCase>();
+      final user = await useCaseSignIn();
+
+      await useCaseRegisterUser(
+        firebaseUid: user.id,
+        email: user.email,
+        displayName: user.displayName,
+        photoUrl: user.photoUrl,
+      );
+
+      return user;
     });
   }
 
