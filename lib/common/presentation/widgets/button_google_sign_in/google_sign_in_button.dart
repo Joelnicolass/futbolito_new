@@ -37,7 +37,6 @@ class GoogleSignInButton extends StatelessWidget {
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
-            side: BorderSide(color: Colors.grey.shade300),
           ),
         ),
       ),

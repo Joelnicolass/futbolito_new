@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:futbolitonew/common/domain/entities/colors_foundation_entity.dart';
 import 'package:futbolitonew/core/di/register_dependencies.dart';
 import 'package:futbolitonew/core/navigator/router.dart';
 
@@ -17,10 +18,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Futbolito',
-      themeMode: ThemeMode.dark,
       theme: ThemeData(
-        brightness: Brightness.dark,
-        colorSchemeSeed: Colors.indigo,
+        brightness: Brightness.light,
+        colorScheme: ColorScheme.light(
+          primary: ColorsFoundation.primary.color,
+          primaryContainer: ColorsFoundation.background.color,
+          secondary: ColorsFoundation.secondary.color,
+          surface: ColorsFoundation.surface.color,
+        ),
       ),
       routerConfig: appRouter,
     );

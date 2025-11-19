@@ -88,9 +88,6 @@ class PushNotificationService {
   void _listenForegroundMessages() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Notificación recibida en foreground: ${message.messageId}');
-      print('Título: ${message.notification?.title}');
-      print('Cuerpo: ${message.notification?.body}');
-      print('Data: ${message.data}');
     });
   }
 
