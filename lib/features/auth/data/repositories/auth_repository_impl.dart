@@ -58,6 +58,24 @@ class AuthRepositoryImpl implements AuthRepository {
       return null;
     }
 
+    // Intentar obtener el usuario de Supabase primero
+    try {
+      final supabaseUser = await dataSource.getUserFromSupabase(firebaseUser.uid);
+      
+      if (supabaseUser != null) {
+        // Si existe en Supabase, retornar esos datos
+        return UserModel(
+          id: supabaseUser['id'].toString(),
+          email: supabaseUser['email'] as String,
+          displayName: supabaseUser['display_name'] as String?,
+          photoUrl: supabaseUser['photo_url'] as String?,
+        ).toEntity();
+      }
+    } catch (e) {
+      print('⚠️  Error al obtener usuario de Supabase: $e');
+    }
+
+    // Si no existe en Supabase o hubo error, retornar datos de Firebase
     return UserModel.fromFirebaseUser(
       firebaseUser.uid,
       firebaseUser.email ?? '',

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
 @pragma('vm:entry-point')
@@ -17,48 +16,36 @@ class PushNotificationService {
 
   PushNotificationService(this._router);
 
-  bool get _isIOSSimulator {
-    if (!Platform.isIOS) return false;
-    return !kReleaseMode && Platform.isIOS;
-  }
-
   Future<void> initialize() async {
     try {
-      if (_isIOSSimulator) {
-        print('⚠️  ADVERTENCIA: Estás en un simulador iOS');
-        print('⚠️  Las notificaciones push NO funcionan en simuladores');
-        print('⚠️  El token APNS solo está disponible en dispositivos físicos');
-        print('⚠️  Para probar notificaciones, usa un iPhone/iPad real');
-      }
-      await _requestPermissions();
-      await _getToken();
+      await requestPermissions();
+      await getToken();
+
       await _handleInitialMessage();
       _listenForegroundMessages();
       _listenMessageOpenedApp();
 
-      if (Platform.isIOS && !_isIOSSimulator) _listenTokenRefresh();
+      if (Platform.isIOS) _listenTokenRefresh();
     } catch (e) {
       print('❌ Error al inicializar notificaciones push: $e');
     }
   }
 
-  Future<void> _requestPermissions() async {
+  Future<void> requestPermissions() async {
     try {
-      NotificationSettings settings = await _firebaseMessaging
-          .requestPermission(
-            alert: true,
-            announcement: false,
-            badge: true,
-            carPlay: false,
-            criticalAlert: false,
-            provisional: false,
-            sound: true,
-          );
+      NotificationSettings settings = await _firebaseMessaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
 
       print('📱 Permisos de notificación: ${settings.authorizationStatus}');
 
       if (Platform.isIOS &&
-          !_isIOSSimulator &&
           settings.authorizationStatus == AuthorizationStatus.authorized) {
         await _waitForAPNSToken();
       }
@@ -68,11 +55,15 @@ class PushNotificationService {
   }
 
   Future<void> _waitForAPNSToken() async {
-    if (_isIOSSimulator) return;
     try {
-      await _firebaseMessaging.getAPNSToken();
+      final apnsToken = await _firebaseMessaging.getAPNSToken();
+      if (apnsToken != null) {
+        print('✅ APNS Token obtenido: ${apnsToken.substring(0, 20)}...');
+      } else {
+        print('⚠️  APNS Token no disponible - posible simulador');
+      }
     } catch (e) {
-      print('⚠️  APNS Token no disponible aún: $e');
+      print('⚠️  Error al obtener APNS Token: $e');
     }
   }
 
@@ -83,18 +74,28 @@ class PushNotificationService {
     });
   }
 
-  Future<void> _getToken() async {
+  Future<String> getToken() async {
     try {
-      String? token = await _firebaseMessaging.getToken();
-      if (token != null) {
-        print('🔑 FCM Token: $token');
+      if (Platform.isIOS) {
+        // En iOS, esperamos un poco para asegurar que APNS esté listo
+        await Future.delayed(const Duration(milliseconds: 500));
+      }
 
-        // TODO: Enviar este token al backend para poder enviar notificaciones específicas
+      String? token = await _firebaseMessaging.getToken();
+      
+      if (token != null && token.isNotEmpty) {
+        print('✅ FCM Token obtenido: ${token.substring(0, 50)}...');
+        return token;
       } else {
-        print('⚠️  No se pudo obtener el FCM Token');
+        print('⚠️  No se pudo obtener FCM Token');
+        if (Platform.isIOS) {
+          print('⚠️  Posible simulador iOS - las notificaciones no funcionan en simuladores');
+        }
+        return "";
       }
     } catch (e) {
       print('❌ Error al obtener token FCM: $e');
+      return "";
     }
   }
 
