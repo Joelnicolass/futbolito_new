@@ -5,9 +5,6 @@ import 'package:go_router/go_router.dart';
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Background message received: ${message.messageId}');
-  print('Título: ${message.notification?.title}');
-  print('Cuerpo: ${message.notification?.body}');
-  print('Data: ${message.data}');
 }
 
 class PushNotificationService {
@@ -20,12 +17,10 @@ class PushNotificationService {
     try {
       await requestPermissions();
       await getToken();
-
       await _handleInitialMessage();
+
       _listenForegroundMessages();
       _listenMessageOpenedApp();
-
-      if (Platform.isIOS) _listenTokenRefresh();
     } catch (e) {
       print('❌ Error al inicializar notificaciones push: $e');
     }
@@ -44,8 +39,6 @@ class PushNotificationService {
             sound: true,
           );
 
-      print('📱 Permisos de notificación: ${settings.authorizationStatus}');
-
       if (Platform.isIOS &&
           settings.authorizationStatus == AuthorizationStatus.authorized) {
         await _waitForAPNSToken();
@@ -57,43 +50,20 @@ class PushNotificationService {
 
   Future<void> _waitForAPNSToken() async {
     try {
-      final apnsToken = await _firebaseMessaging.getAPNSToken();
-      if (apnsToken != null) {
-        print('✅ APNS Token obtenido: ${apnsToken.substring(0, 20)}...');
-      } else {
-        print('⚠️  APNS Token no disponible - posible simulador');
-      }
+      await _firebaseMessaging.getAPNSToken();
     } catch (e) {
       print('⚠️  Error al obtener APNS Token: $e');
     }
   }
 
-  void _listenTokenRefresh() {
-    _firebaseMessaging.onTokenRefresh.listen((newToken) {
-      print('🔄 FCM Token actualizado: $newToken');
-      // TODO: Enviar el nuevo token al backend
-    });
-  }
-
   Future<String> getToken() async {
     try {
-      if (Platform.isIOS) {
-        // En iOS, esperamos un poco para asegurar que APNS esté listo
-        await Future.delayed(const Duration(milliseconds: 500));
-      }
-
+      if (Platform.isIOS) await _waitForAPNSToken();
       String? token = await _firebaseMessaging.getToken();
 
       if (token != null && token.isNotEmpty) {
-        print('✅ FCM Token obtenido: ${token.substring(0, 50)}...');
         return token;
       } else {
-        print('⚠️  No se pudo obtener FCM Token');
-        if (Platform.isIOS) {
-          print(
-            '⚠️  Posible simulador iOS - las notificaciones no funcionan en simuladores',
-          );
-        }
         return "";
       }
     } catch (e) {
