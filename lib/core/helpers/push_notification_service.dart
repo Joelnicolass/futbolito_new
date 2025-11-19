@@ -33,15 +33,16 @@ class PushNotificationService {
 
   Future<void> requestPermissions() async {
     try {
-      NotificationSettings settings = await _firebaseMessaging.requestPermission(
-        alert: true,
-        announcement: false,
-        badge: true,
-        carPlay: false,
-        criticalAlert: false,
-        provisional: false,
-        sound: true,
-      );
+      NotificationSettings settings = await _firebaseMessaging
+          .requestPermission(
+            alert: true,
+            announcement: false,
+            badge: true,
+            carPlay: false,
+            criticalAlert: false,
+            provisional: false,
+            sound: true,
+          );
 
       print('📱 Permisos de notificación: ${settings.authorizationStatus}');
 
@@ -82,14 +83,16 @@ class PushNotificationService {
       }
 
       String? token = await _firebaseMessaging.getToken();
-      
+
       if (token != null && token.isNotEmpty) {
         print('✅ FCM Token obtenido: ${token.substring(0, 50)}...');
         return token;
       } else {
         print('⚠️  No se pudo obtener FCM Token');
         if (Platform.isIOS) {
-          print('⚠️  Posible simulador iOS - las notificaciones no funcionan en simuladores');
+          print(
+            '⚠️  Posible simulador iOS - las notificaciones no funcionan en simuladores',
+          );
         }
         return "";
       }

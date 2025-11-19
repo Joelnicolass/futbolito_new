@@ -28,7 +28,7 @@ class AuthNotifier extends _$AuthNotifier {
 
       // Login con Firebase
       final firebaseUser = await useCaseSignIn();
-      
+
       // Registrar usuario en Supabase (retorna el usuario con el ID de Supabase)
       final supabaseUser = await useCaseRegisterUser(
         firebaseUid: firebaseUser.id,
@@ -45,7 +45,10 @@ class AuthNotifier extends _$AuthNotifier {
       try {
         final fcmToken = await getIt<PushNotificationService>().getToken();
         if (fcmToken.isNotEmpty) {
-          await useCaseRegisterFcmToken(userId: supabaseUser.id, token: fcmToken);
+          await useCaseRegisterFcmToken(
+            userId: supabaseUser.id,
+            token: fcmToken,
+          );
           print('✅ FCM Token registrado en Supabase');
         } else {
           print('⚠️  FCM Token vacío, omitiendo registro');
@@ -67,7 +70,7 @@ class AuthNotifier extends _$AuthNotifier {
 
       // Login con Firebase
       final firebaseUser = await useCaseSignIn();
-      
+
       // Registrar usuario en Supabase (retorna el usuario con el ID de Supabase)
       final supabaseUser = await useCaseRegisterUser(
         firebaseUid: firebaseUser.id,
@@ -84,7 +87,10 @@ class AuthNotifier extends _$AuthNotifier {
       try {
         final fcmToken = await getIt<PushNotificationService>().getToken();
         if (fcmToken.isNotEmpty) {
-          await useCaseRegisterFcmToken(userId: supabaseUser.id, token: fcmToken);
+          await useCaseRegisterFcmToken(
+            userId: supabaseUser.id,
+            token: fcmToken,
+          );
           print('✅ FCM Token registrado en Supabase');
         } else {
           print('⚠️  FCM Token vacío, omitiendo registro');

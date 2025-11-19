@@ -60,8 +60,10 @@ class AuthRepositoryImpl implements AuthRepository {
 
     // Intentar obtener el usuario de Supabase primero
     try {
-      final supabaseUser = await dataSource.getUserFromSupabase(firebaseUser.uid);
-      
+      final supabaseUser = await dataSource.getUserFromSupabase(
+        firebaseUser.uid,
+      );
+
       if (supabaseUser != null) {
         // Si existe en Supabase, retornar esos datos
         return UserModel(
