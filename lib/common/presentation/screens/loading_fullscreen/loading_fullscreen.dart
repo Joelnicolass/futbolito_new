@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/text/text.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
@@ -10,14 +11,17 @@ class LoadingFullScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldFoundation(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            CircularProgressIndicator.adaptive(),
-            SpacingFoundation.md.spacer,
-            Translate.loading.toTextFoundation(type: TextType.headline2),
-          ],
+      useSafeArea: false,
+      body: ScaffoldContent(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: .center,
+            children: [
+              CircularProgressIndicator.adaptive(),
+              SpacingFoundation.md.spacer,
+              Translate.loading.toTextFoundation(type: TextType.headline2),
+            ],
+          ),
         ),
       ),
     );

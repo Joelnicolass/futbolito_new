@@ -14,7 +14,14 @@ class TextType {
 }
 
 class TextFoundation extends StatelessWidget {
-  TextFoundation({super.key, this.text, this.style, this.keyText, this.type});
+  TextFoundation({
+    super.key,
+    this.text,
+    this.style,
+    this.keyText,
+    this.type,
+    this.align,
+  });
 
   final t = getIt<Internationalization>().translate;
 
@@ -22,6 +29,7 @@ class TextFoundation extends StatelessWidget {
   final TextStyle? style;
   final Translate? keyText;
   final String? type;
+  final TextAlign? align;
 
   final Map<String, TextStyle> _textStyles = {
     TextType.headline1: GoogleFonts.quicksand(
@@ -53,22 +61,32 @@ class TextFoundation extends StatelessWidget {
     return Text(
       textToShow ?? '',
       style: GoogleFonts.quicksand(textStyle: style ?? _textStyles[type]),
+      textAlign: align,
     );
   }
 }
 
 extension StringTextFoundationExtension on String {
-  TextFoundation toTextFoundation({TextStyle? style, String? type}) {
+  TextFoundation toTextFoundation({
+    TextStyle? style,
+    String? type,
+    TextAlign? align,
+  }) {
     return TextFoundation(text: this, style: style, type: type);
   }
 }
 
 extension TranslateTextFoundationExtension on Translate {
-  TextFoundation toTextFoundation({TextStyle? style, String? type}) {
+  TextFoundation toTextFoundation({
+    TextStyle? style,
+    String? type,
+    TextAlign? align,
+  }) {
     return TextFoundation(
       keyText: this,
       style: style,
       type: type ?? TextType.bodyText1,
+      align: align,
     );
   }
 }
@@ -81,7 +99,16 @@ extension TranslateTextFoundationStringExtension on Translate {
 }
 
 extension TextExtensionFoundation on Text {
-  TextFoundation toTextFoundation({TextStyle? style, String? type}) {
-    return TextFoundation(text: data, style: style ?? this.style, type: type);
+  TextFoundation toTextFoundation({
+    TextStyle? style,
+    String? type,
+    TextAlign? align,
+  }) {
+    return TextFoundation(
+      text: data,
+      style: style ?? this.style,
+      type: type,
+      align: align,
+    );
   }
 }

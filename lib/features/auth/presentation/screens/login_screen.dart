@@ -16,9 +16,10 @@ class LoginScreen extends ConsumerWidget {
     return ScaffoldFoundation(
       body: ScaffoldContent(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const LoginHeader(),
+            SpacingFoundation.xl.spacer,
             Column(
               spacing: SpacingFoundation.md.value,
               children: [

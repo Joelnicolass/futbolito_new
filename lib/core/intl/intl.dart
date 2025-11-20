@@ -12,9 +12,9 @@ class SpanishInternationalization extends Internationalization {
   @override
   Map<Translate, String> get languageMap => {
     Translate.appName: "Futbolito",
+    Translate.welcome: "¡Bienvenido a \nFutbolito!",
     Translate.login: "Iniciar sesión",
     Translate.logout: "Cerrar sesión",
-    Translate.welcome: "Bienvenido",
     Translate.loading: "Cargando...",
     Translate.homePage: "Home",
   };
