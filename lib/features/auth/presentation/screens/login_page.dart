@@ -20,7 +20,8 @@ class LoginPage extends ConsumerWidget {
           });
         }
 
-        return const LoginScreen();
+        return const LoadingFullScreen();
+        LoginScreen();
       },
       loading: () => const LoadingFullScreen(),
       error: (_, __) => const LoginScreen(),

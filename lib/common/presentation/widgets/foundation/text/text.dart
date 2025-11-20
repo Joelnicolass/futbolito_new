@@ -1,0 +1,81 @@
+import 'package:flutter/material.dart';
+import 'package:futbolitonew/core/di/register_dependencies.dart';
+import 'package:futbolitonew/core/intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+enum TextFoundationType { headline1, headline2, bodyText1, bodyText2, caption }
+
+class TextType {
+  static const String headline1 = 'headline1';
+  static const String headline2 = 'headline2';
+  static const String bodyText1 = 'bodyText1';
+  static const String bodyText2 = 'bodyText2';
+  static const String caption = 'caption';
+}
+
+class TextFoundation extends StatelessWidget {
+  TextFoundation({super.key, this.text, this.style, this.keyText, this.type});
+
+  final t = getIt<Internationalization>().translate;
+
+  final String? text;
+  final TextStyle? style;
+  final Translate? keyText;
+  final String? type;
+
+  final Map<String, TextStyle> _textStyles = {
+    TextType.headline1: GoogleFonts.quicksand(
+      fontSize: 32,
+      fontWeight: FontWeight.bold,
+    ),
+    TextType.headline2: GoogleFonts.quicksand(
+      fontSize: 24,
+      fontWeight: FontWeight.w600,
+    ),
+    TextType.bodyText1: GoogleFonts.quicksand(
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+    ),
+    TextType.bodyText2: GoogleFonts.quicksand(
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+    ),
+    TextType.caption: GoogleFonts.quicksand(
+      fontSize: 12,
+      fontWeight: FontWeight.w300,
+    ),
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final textToShow = keyText != null ? t(keyText!) : text;
+
+    return Text(
+      textToShow ?? '',
+      style: GoogleFonts.quicksand(textStyle: style ?? _textStyles[type]),
+    );
+  }
+}
+
+extension StringTextFoundationExtension on String {
+  TextFoundation toTextFoundation({TextStyle? style, String? type}) {
+    return TextFoundation(text: this, style: style, type: type);
+  }
+}
+
+extension TranslateTextFoundationExtension on Translate {
+  TextFoundation toTextFoundation({TextStyle? style, String? type}) {
+    return TextFoundation(
+      keyText: this,
+      style: style,
+      type: type ?? TextType.bodyText1,
+    );
+  }
+}
+
+extension TranslateTextFoundationStringExtension on Translate {
+  String toTextFoundationString() {
+    final t = getIt<Internationalization>().translate;
+    return t(this);
+  }
+}

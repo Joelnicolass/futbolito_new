@@ -5,30 +5,23 @@ import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.da
 import 'package:futbolitonew/common/presentation/providers/test_provider/test_provider.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/avatar/avatar.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_widget.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text.dart';
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
-import 'package:futbolitonew/core/di/register_dependencies.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = getIt<Internationalization>().translate;
     final user = ref.watch(authProvider).value;
 
     return ScaffoldFoundation(
       onRefresh: () => ref.read(testProviderProvider.notifier).loadItems(),
       appBar: AppBar(
-        title: Text(
-          t(Translate.homePage),
-          style: GoogleFonts.quicksand(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
-        ),
+        title: Translate.homePage.toTextFoundation(type: TextType.headline1),
+
         backgroundColor: Colors.transparent,
         elevation: 0,
         titleSpacing: SpacingFoundation.md.value,
@@ -52,7 +45,9 @@ class HomePage extends ConsumerWidget {
 
                 if (context.mounted) context.go('/login');
               },
-              child: Text(t(Translate.logout)),
+              child: Translate.logout.toTextFoundation(
+                type: TextType.bodyText1,
+              ),
             ),
           ],
         ),

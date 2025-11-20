@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text.dart';
 
 class AppleSignInButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -28,8 +29,8 @@ class AppleSignInButton extends StatelessWidget {
                   ),
                 )
               : const Icon(Icons.apple, size: 24),
-          label: Text(
-            isLoading ? 'Iniciando sesión...' : 'Continuar con Apple',
+          label: TextFoundation(
+            text: isLoading ? 'Iniciando sesión...' : 'Continuar con Apple',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           style: ElevatedButton.styleFrom(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -27,8 +28,8 @@ class GoogleSignInButton extends StatelessWidget {
                 ),
               )
             : const Icon(Icons.account_circle, size: 24),
-        label: Text(
-          isLoading ? 'Iniciando sesión...' : 'Continuar con Google',
+        label: TextFoundation(
+          text: isLoading ? 'Iniciando sesión...' : 'Continuar con Google',
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
         style: ElevatedButton.styleFrom(
