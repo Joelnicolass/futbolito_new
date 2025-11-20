@@ -89,6 +89,11 @@ class HomePage extends ConsumerWidget {
               onPressed: () => print('My Button Pressed'),
             ),
 
+            'alternativo'.toButtonFoundation(
+              type: ButtonFoundationType.alternative,
+              onPressed: () => print('Botón Alternativo Presionado'),
+            ),
+
             ButtonFoundation(
               text: 'Button 1',
               type: ButtonFoundationType.primary,

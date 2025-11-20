@@ -3,7 +3,14 @@ import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart
 import 'package:futbolitonew/common/presentation/widgets/foundation/text/text.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 
-enum ButtonFoundationType { primary, secondary, outlined, text, link }
+enum ButtonFoundationType {
+  primary,
+  secondary,
+  outlined,
+  text,
+  link,
+  alternative,
+}
 
 enum ButtonFoundationSize { sm, md, lg }
 
@@ -69,6 +76,10 @@ class ButtonFoundation extends StatelessWidget {
       backgroundColor: Colors.transparent,
       textColor: ColorFoundation.textPrimary.color,
       underline: true,
+    ),
+    ButtonFoundationType.alternative: _ButtonStyleConfig(
+      backgroundColor: ColorFoundation.tertiary.color,
+      textColor: ColorFoundation.dark.color,
     ),
   };
 
@@ -192,6 +203,7 @@ class ButtonFoundation extends StatelessWidget {
 
       case ButtonFoundationType.primary:
       case ButtonFoundationType.secondary:
+      case ButtonFoundationType.alternative:
         return ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
