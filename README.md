@@ -514,6 +514,9 @@ flutter pub get
 flutter pub run build_runner build --delete-conflicting-outputs
 
 fvm flutter pub run build_runner build --delete-conflicting-outputs --enable-experiment=dot-shorthands
+
+# generar codigo en watch
+fvm flutter pub run build_runner watch --delete-conflicting-outputs --enable-experiment=dot-shorthands
 ```
 
 ### Configuración Firebase

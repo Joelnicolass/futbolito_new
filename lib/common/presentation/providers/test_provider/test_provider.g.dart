@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_provider.dart';
+part of 'test_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,44 +9,44 @@ part of 'auth_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(AuthNotifier)
-const authProvider = AuthNotifierProvider._();
+@ProviderFor(TestProvider)
+const testProviderProvider = TestProviderProvider._();
 
-final class AuthNotifierProvider
-    extends $AsyncNotifierProvider<AuthNotifier, User?> {
-  const AuthNotifierProvider._()
+final class TestProviderProvider
+    extends $AsyncNotifierProvider<TestProvider, TestState> {
+  const TestProviderProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'authProvider',
-        isAutoDispose: false,
+        name: r'testProviderProvider',
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$authNotifierHash();
+  String debugGetCreateSourceHash() => _$testProviderHash();
 
   @$internal
   @override
-  AuthNotifier create() => AuthNotifier();
+  TestProvider create() => TestProvider();
 }
 
-String _$authNotifierHash() => r'd2d34617b892738b62e7678b4450cb52a5615c74';
+String _$testProviderHash() => r'da4676ddce23530c28791eb782e15d0b695613b0';
 
-abstract class _$AuthNotifier extends $AsyncNotifier<User?> {
-  FutureOr<User?> build();
+abstract class _$TestProvider extends $AsyncNotifier<TestState> {
+  FutureOr<TestState> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<User?>, User?>;
+    final ref = this.ref as $Ref<AsyncValue<TestState>, TestState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<User?>, User?>,
-              AsyncValue<User?>,
+              AnyNotifier<AsyncValue<TestState>, TestState>,
+              AsyncValue<TestState>,
               Object?,
               Object?
             >;

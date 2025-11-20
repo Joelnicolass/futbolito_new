@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_gradient_background/animated_gradient_background.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:futbolitonew/common/domain/entities/padding_foundation_entity.dart';
 
@@ -17,6 +18,9 @@ class ScaffoldFoundation extends StatelessWidget {
     this.bottomNavigationBar,
     this.resizeToAvoidBottomInset,
     this.backgroundColor,
+    this.onRefresh,
+    this.isLoading = false,
+    this.applyOpacityInRefresh = false,
   });
 
   final Widget body;
@@ -30,6 +34,9 @@ class ScaffoldFoundation extends StatelessWidget {
   final Widget? bottomNavigationBar;
   final bool? resizeToAvoidBottomInset;
   final Color? backgroundColor;
+  final Future<void> Function()? onRefresh;
+  final bool isLoading;
+  final bool applyOpacityInRefresh;
 
   @override
   Widget build(BuildContext context) {
@@ -43,28 +50,64 @@ class ScaffoldFoundation extends StatelessWidget {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: padding ?? PaddingFoundation.medium.all,
+              padding: padding ?? PaddingFoundation.md.all,
               child: body,
             ),
           ),
         ],
       );
     } else {
-      content = Column(
-        children: [
-          if (appBar != null) appBar!,
-          Expanded(
-            child: Padding(
-              padding: padding ?? PaddingFoundation.medium.all,
-              child: body,
-            ),
-          ),
-        ],
+      content = SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            if (appBar != null) appBar!,
+            Padding(padding: padding ?? PaddingFoundation.md.all, child: body),
+          ],
+        ),
       );
     }
 
     // Aplicar animación si está habilitada
     if (useAnimation) content = FadeIn(child: content);
+
+    if (onRefresh != null) {
+      const double indicatorSize = 36.0;
+      const double indicatorSpacing = 16.0;
+      final double pullDistance = indicatorSize + indicatorSpacing;
+
+      content = CustomRefreshIndicator(
+        builder: (context, child, controller) {
+          return AnimatedBuilder(
+            animation: controller,
+            builder: (context, _) {
+              return Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Positioned(
+                    top: -indicatorSize + (controller.value * pullDistance),
+                    child: const CircularProgressIndicator.adaptive(),
+                  ),
+
+                  Transform.translate(
+                    offset: Offset(0, controller.value * pullDistance),
+                    child: Opacity(
+                      opacity: (1.0 - controller.value).clamp(
+                        applyOpacityInRefresh ? 0.5 : 1.0,
+                        1.0,
+                      ),
+                      child: child,
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        onRefresh: onRefresh!,
+        child: Container(child: content),
+      );
+    }
 
     // Aplicar SafeArea si está habilitado
     if (useSafeArea) content = SafeArea(child: content);

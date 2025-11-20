@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-enum PaddingFoundation { small, medium, large }
+enum PaddingFoundation { sm, md, lg }
 
 extension PaddingFoundationExtension on PaddingFoundation {
   double get value {
     switch (this) {
-      case PaddingFoundation.small:
+      case PaddingFoundation.sm:
         return 8.0;
-      case PaddingFoundation.medium:
+      case PaddingFoundation.md:
         return 16.0;
-      case PaddingFoundation.large:
+      case PaddingFoundation.lg:
         return 24.0;
     }
   }
