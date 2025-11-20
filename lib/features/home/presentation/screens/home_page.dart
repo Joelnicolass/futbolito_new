@@ -84,6 +84,11 @@ class HomePage extends ConsumerWidget {
               ),
             ),
 
+            Translate.appName.toButtonFoundation(
+              type: ButtonFoundationType.primary,
+              onPressed: () => print('My Button Pressed'),
+            ),
+
             'my button'.toButtonFoundation(
               type: ButtonFoundationType.primary,
               onPressed: () => print('My Button Pressed'),

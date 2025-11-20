@@ -301,7 +301,7 @@ extension TranslateButtonFoundationExtension on Translate {
     double? iconSpacing,
   }) {
     return ButtonFoundation(
-      textKey: this,
+      text: this.toTextFoundationString(),
       type: type,
       size: size,
       onPressed: onPressed,
