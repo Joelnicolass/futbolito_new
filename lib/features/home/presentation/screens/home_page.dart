@@ -1,9 +1,10 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:futbolitonew/common/domain/entities/padding_foundation_entity.dart';
+import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
 import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
-import 'package:futbolitonew/common/presentation/providers/test_provider/test_provider.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/avatar/avatar.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/text/text.dart';
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
@@ -18,14 +19,10 @@ class HomePage extends ConsumerWidget {
     final user = ref.watch(authProvider).value;
 
     return ScaffoldFoundation(
-      onRefresh: () => ref.read(testProviderProvider.notifier).loadItems(),
+      useSafeArea: false,
+      onRefresh: () => Future.delayed(const Duration(seconds: 1)),
       appBar: AppBar(
         title: Translate.homePage.toTextFoundation(type: TextType.headline1),
-
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        titleSpacing: SpacingFoundation.md.value,
-        actionsPadding: PaddingFoundation.md.horizontal,
         actions: [
           AvatarFoundation(
             showBorder: true,
@@ -35,10 +32,45 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: Center(
+      body: ScaffoldContent(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 180,
+              child: ListView.builder(
+                itemCount: 10,
+                scrollDirection: Axis.horizontal,
+                itemExtent: MediaQuery.of(context).size.width * 0.8,
+                itemBuilder: (context, index) {
+                  return FadeIn(
+                    delay: Duration(milliseconds: 100 * index),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: ColorFoundation.cardBackground.color,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      margin: EdgeInsets.only(
+                        right: index == 9 ? 0 : SpacingFoundation.md.value,
+                        bottom: 16,
+                        top: 16,
+                      ),
+                      width: 200,
+                      child: ListTile(
+                        title: Text(
+                          'Card ${index + 1}',
+                        ).toTextFoundation(style: TextStyle(fontSize: 24)),
+                        subtitle: Text(
+                          'Descripción del equipo ${index + 1}',
+                        ).toTextFoundation(),
+                        leading: Icon(Icons.sports_soccer, size: 48),
+                        iconColor: ColorFoundation.primary.color,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SpacingFoundation.md.spacer,
             TextButton(
               onPressed: () async {
                 await ref.read(authProvider.notifier).signOut();

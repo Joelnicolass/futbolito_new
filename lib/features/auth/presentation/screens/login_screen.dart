@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
 import 'package:futbolitonew/common/presentation/widgets/button_apple_sign_in/apple_sign_in_button.dart';
 import 'package:futbolitonew/common/presentation/widgets/button_google_sign_in/google_sign_in_button.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_widget.dart';
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
 import 'package:futbolitonew/features/auth/presentation/widgets/login_header_widget.dart';
@@ -13,18 +14,18 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ScaffoldFoundation(
-      body: Center(
+      body: ScaffoldContent(
         child: Column(
-          mainAxisAlignment: .spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const LoginHeader(),
             Column(
+              spacing: SpacingFoundation.md.value,
               children: [
                 GoogleSignInButton(
                   onPressed: () =>
                       ref.read(authProvider.notifier).signInWithGoogle(),
                 ),
-                SpacingFoundation.md.spacer,
                 AppleSignInButton(
                   onPressed: () =>
                       ref.read(authProvider.notifier).signInWithApple(),

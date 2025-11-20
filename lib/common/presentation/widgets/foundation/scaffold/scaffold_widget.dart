@@ -13,13 +13,12 @@ class ScaffoldFoundation extends StatelessWidget {
     this.padding,
     this.useSafeArea = true,
     this.useAnimation = true,
-    this.enableScroll = true,
+    this.useSliverFillRemaining = false,
     this.floatingActionButton,
     this.bottomNavigationBar,
     this.resizeToAvoidBottomInset,
     this.backgroundColor,
     this.onRefresh,
-    this.isLoading = false,
     this.applyOpacityInRefresh = false,
   });
 
@@ -29,48 +28,50 @@ class ScaffoldFoundation extends StatelessWidget {
   final EdgeInsets? padding;
   final bool useSafeArea;
   final bool useAnimation;
-  final bool enableScroll;
+  final bool useSliverFillRemaining;
   final Widget? floatingActionButton;
   final Widget? bottomNavigationBar;
   final bool? resizeToAvoidBottomInset;
   final Color? backgroundColor;
   final Future<void> Function()? onRefresh;
-  final bool isLoading;
   final bool applyOpacityInRefresh;
 
   @override
   Widget build(BuildContext context) {
-    Widget content;
+    final effectivePadding = padding ?? PaddingFoundation.md.all;
+    final safeAreaPadding = useSafeArea
+        ? MediaQuery.of(context).padding
+        : EdgeInsets.zero;
 
-    if (enableScroll) {
-      content = CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        slivers: [
-          if (appBar != null) SliverToBoxAdapter(child: appBar!),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Padding(
-              padding: padding ?? PaddingFoundation.md.all,
-              child: body,
-            ),
-          ),
-        ],
-      );
-    } else {
-      content = SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            if (appBar != null) appBar!,
-            Padding(padding: padding ?? PaddingFoundation.md.all, child: body),
-          ],
-        ),
-      );
-    }
+    // Combinar padding del scaffold con el SafeArea
+    final totalPadding = EdgeInsets.only(
+      top: effectivePadding.top + safeAreaPadding.top,
+      bottom: effectivePadding.bottom + safeAreaPadding.bottom,
+      left: effectivePadding.left + safeAreaPadding.left,
+      right: effectivePadding.right + safeAreaPadding.right,
+    );
 
-    // Aplicar animación si está habilitada
+    // Contenido scrollable con CustomScrollView para spaceBetween
+    Widget content = useSliverFillRemaining
+        ? CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              SliverPadding(
+                padding: totalPadding,
+                sliver: SliverFillRemaining(hasScrollBody: false, child: body),
+              ),
+            ],
+          )
+        : SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: totalPadding,
+            child: body,
+          );
+
+    // Aplicar animación
     if (useAnimation) content = FadeIn(child: content);
 
+    // Pull-to-refresh
     if (onRefresh != null) {
       const double indicatorSize = 36.0;
       const double indicatorSpacing = 16.0;
@@ -88,7 +89,6 @@ class ScaffoldFoundation extends StatelessWidget {
                     top: -indicatorSize + (controller.value * pullDistance),
                     child: const CircularProgressIndicator.adaptive(),
                   ),
-
                   Transform.translate(
                     offset: Offset(0, controller.value * pullDistance),
                     child: Opacity(
@@ -109,10 +109,7 @@ class ScaffoldFoundation extends StatelessWidget {
       );
     }
 
-    // Aplicar SafeArea si está habilitado
-    if (useSafeArea) content = SafeArea(child: content);
-
-    // Aplicar fondo (gradiente o color sólido)
+    // Fondo (sin SafeArea que limite el scroll)
     if (gradientColors != null && gradientColors!.isNotEmpty) {
       content = AnimatedGradientBackground(
         colors: gradientColors!,
@@ -129,10 +126,29 @@ class ScaffoldFoundation extends StatelessWidget {
     }
 
     return Scaffold(
+      appBar: appBar,
       body: content,
       floatingActionButton: floatingActionButton,
       bottomNavigationBar: bottomNavigationBar,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
     );
+  }
+}
+
+class ScreenAvailableHeight {
+  static double calculate(
+    BuildContext context, {
+    double additionalSubtract = 0.0,
+  }) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final padding = MediaQuery.of(context).padding;
+
+    final availableHeight =
+        screenHeight -
+        padding.top -
+        padding.bottom -
+        (PaddingFoundation.md.all.vertical) -
+        additionalSubtract;
+    return availableHeight;
   }
 }

@@ -79,3 +79,9 @@ extension TranslateTextFoundationStringExtension on Translate {
     return t(this);
   }
 }
+
+extension TextExtensionFoundation on Text {
+  TextFoundation toTextFoundation({TextStyle? style, String? type}) {
+    return TextFoundation(text: data, style: style ?? this.style, type: type);
+  }
+}
