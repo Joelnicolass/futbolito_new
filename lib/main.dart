@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           titleSpacing: SpacingFoundation.md.value,
         ),
         colorScheme: ColorScheme.light(
-          primary: ColorFoundation.primary.color,
+          primary: ColorFoundation.primary800.color,
           primaryContainer: ColorFoundation.background.color,
           onPrimary: ColorFoundation.dark.color,
           secondary: ColorFoundation.secondary.color,

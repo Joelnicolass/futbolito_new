@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
 import 'package:futbolitonew/core/di/register_dependencies.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,22 +36,27 @@ class TextFoundation extends StatelessWidget {
     TextType.headline1: GoogleFonts.quicksand(
       fontSize: 32,
       fontWeight: FontWeight.bold,
+      color: ColorFoundation.textPrimary.color,
     ),
     TextType.headline2: GoogleFonts.quicksand(
       fontSize: 24,
       fontWeight: FontWeight.w600,
+      color: ColorFoundation.textPrimary.color,
     ),
     TextType.bodyText1: GoogleFonts.quicksand(
       fontSize: 16,
       fontWeight: FontWeight.normal,
+      color: ColorFoundation.textPrimary.color,
     ),
     TextType.bodyText2: GoogleFonts.quicksand(
       fontSize: 14,
       fontWeight: FontWeight.normal,
+      color: ColorFoundation.textPrimaryLight.color,
     ),
     TextType.caption: GoogleFonts.quicksand(
       fontSize: 12,
       fontWeight: FontWeight.w300,
+      color: ColorFoundation.textPrimaryLight.color,
     ),
   };
 

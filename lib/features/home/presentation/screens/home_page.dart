@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
 import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/avatar/avatar.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/button/button_foundation.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/text/text.dart';
@@ -34,6 +35,7 @@ class HomePage extends ConsumerWidget {
       ),
       body: ScaffoldContent(
         child: Column(
+          spacing: SpacingFoundation.md.value,
           children: [
             SizedBox(
               height: 180,
@@ -80,6 +82,38 @@ class HomePage extends ConsumerWidget {
               child: Translate.logout.toTextFoundation(
                 type: TextType.bodyText1,
               ),
+            ),
+
+            'my button'.toButtonFoundation(
+              type: ButtonFoundationType.primary,
+              onPressed: () => print('My Button Pressed'),
+            ),
+
+            ButtonFoundation(
+              text: 'Button 1',
+              type: ButtonFoundationType.primary,
+              onPressed: () => print('Primary Button Pressed'),
+            ),
+
+            ButtonFoundation(
+              text: 'Button 2',
+              type: ButtonFoundationType.secondary,
+              onPressed: () => print('Secondary Button Pressed'),
+            ),
+            ButtonFoundation(
+              text: 'Button 2',
+              type: ButtonFoundationType.outlined,
+              onPressed: () => print('Outlined Button Pressed'),
+            ),
+            ButtonFoundation(
+              text: 'Button 3',
+              type: ButtonFoundationType.text,
+              onPressed: () => print('Text Button Pressed'),
+            ),
+            ButtonFoundation(
+              text: 'Button 4',
+              type: ButtonFoundationType.link,
+              onPressed: () => print('Link Button Pressed'),
             ),
           ],
         ),

@@ -27,7 +27,7 @@ class LoginHeader extends StatelessWidget {
                     height: 120,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      color: ColorFoundation.tertiary.color,
+                      color: ColorFoundation.cardBackground.color,
                     ),
                   ),
                   Positioned(
@@ -38,7 +38,7 @@ class LoginHeader extends StatelessWidget {
                       height: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: ColorFoundation.tertiary400.color,
+                        color: ColorFoundation.background.color,
                       ),
                     ),
                   ),
@@ -48,14 +48,13 @@ class LoginHeader extends StatelessWidget {
 
             Positioned(
               child: Bounce(
-                duration: const Duration(milliseconds: 1400),
-                child: FadeInLeft(
-                  from: 100,
-                  duration: const Duration(milliseconds: 1400),
-                  delay: const Duration(milliseconds: 500),
-                  child: SvgPicture.asset(
-                    'assets/svg/soccer_ball.svg',
-                    height: 80,
+                from: 20,
+                child: SvgPicture.asset(
+                  'assets/svg/soccer_ball.svg',
+                  height: 80,
+                  colorFilter: ColorFilter.mode(
+                    ColorFoundation.dark.color,
+                    BlendMode.srcIn,
                   ),
                 ),
               ),
@@ -65,8 +64,16 @@ class LoginHeader extends StatelessWidget {
 
         Translate.welcome.toTextFoundation(
           align: TextAlign.center,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 32,
+            color: ColorFoundation.textPrimary.color,
+          ),
         ),
+
+        SpacingFoundation.lg.spacer,
+
+        Translate.loginSubtitle.toTextFoundation(type: TextType.bodyText1),
       ],
     );
   }

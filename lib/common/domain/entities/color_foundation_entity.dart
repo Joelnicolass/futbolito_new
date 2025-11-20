@@ -24,6 +24,11 @@ enum ColorFoundation {
   info,
   disabled,
   cardBackground,
+  textPrimary,
+  textSecondary,
+  textDisabled,
+  textPrimaryLight,
+  textSecondaryLight,
 }
 
 extension ColorFoundationExtension on ColorFoundation {
@@ -75,6 +80,16 @@ extension ColorFoundationExtension on ColorFoundation {
         return '#6C757D';
       case ColorFoundation.cardBackground:
         return '#FFFBF6';
+      case ColorFoundation.textPrimary:
+        return '#4A4A4A';
+      case ColorFoundation.textSecondary:
+        return '#FFFFFF';
+      case ColorFoundation.textDisabled:
+        return '#B0B0B0';
+      case ColorFoundation.textPrimaryLight:
+        return '#888888';
+      case ColorFoundation.textSecondaryLight:
+        return '#CCCCCC';
     }
   }
 }
