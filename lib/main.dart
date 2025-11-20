@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.light(
           primary: ColorsFoundation.primary.color,
           primaryContainer: ColorsFoundation.background.color,
+          onPrimary: ColorsFoundation.dark.color,
           secondary: ColorsFoundation.secondary.color,
           surface: ColorsFoundation.surface.color,
         ),

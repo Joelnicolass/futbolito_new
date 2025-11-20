@@ -11,7 +11,7 @@ import 'package:futbolitonew/features/auth/domain/usecases/sign_out_usecase.dart
 
 part 'auth_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AuthNotifier extends _$AuthNotifier {
   @override
   Future<User?> build() async {
@@ -68,5 +68,6 @@ class AuthNotifier extends _$AuthNotifier {
   Future<void> signOut() async {
     final useCase = getIt<SignOutUseCase>();
     await useCase();
+    state = const AsyncValue.data(null);
   }
 }

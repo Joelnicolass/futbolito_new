@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:futbolitonew/common/domain/entities/padding_foundation_entity.dart';
+import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/avatar/avatar.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_widget.dart';
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
 import 'package:futbolitonew/core/di/register_dependencies.dart';
@@ -13,6 +15,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = getIt<Internationalization>().translate;
+    final user = ref.watch(authProvider).value;
 
     return ScaffoldFoundation(
       appBar: AppBar(
@@ -22,21 +25,27 @@ class HomePage extends ConsumerWidget {
         actions: [
           Padding(
             padding: PaddingFoundation.medium.right,
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                ref.read(authProvider).value?.photoUrl ?? '',
-              ),
+            child: AvatarFoundation(
+              imageUrl: user?.photoUrl,
+              fallbackText: user?.displayName ?? user?.email,
+              radius: 18,
             ),
           ),
         ],
       ),
       body: Center(
-        child: TextButton(
-          onPressed: () async {
-            await ref.read(authProvider.notifier).signOut();
-            if (context.mounted) context.go('/login');
-          },
-          child: Text(t(Translate.logout)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () async {
+                await ref.read(authProvider.notifier).signOut();
+
+                if (context.mounted) context.go('/login');
+              },
+              child: Text(t(Translate.logout)),
+            ),
+          ],
         ),
       ),
     );
