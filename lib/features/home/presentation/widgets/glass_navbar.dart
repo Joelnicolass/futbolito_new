@@ -63,10 +63,10 @@ class LiquidGlassBottomBar extends StatefulWidget {
     this.fake = false,
   });
 
-  final List<LiquidGlassBottomBarTab> tabs;
+  final List<AdaptiveTab> tabs;
   final int selectedIndex;
   final ValueChanged<int> onTabSelected;
-  final LiquidGlassBottomBarExtraButton? extraButton;
+  final AdaptiveExtraButton? extraButton;
   final double spacing;
   final double horizontalPadding;
   final double bottomPadding;
@@ -157,8 +157,8 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
   }
 }
 
-class LiquidGlassBottomBarTab {
-  const LiquidGlassBottomBarTab({
+class AdaptiveTab {
+  const AdaptiveTab({
     required this.label,
     required this.icon,
     this.selectedIcon,
@@ -171,8 +171,8 @@ class LiquidGlassBottomBarTab {
   final Color? glowColor;
 }
 
-class LiquidGlassBottomBarExtraButton {
-  const LiquidGlassBottomBarExtraButton({
+class AdaptiveExtraButton {
+  const AdaptiveExtraButton({
     required this.icon,
     required this.onTap,
     required this.label,
@@ -192,7 +192,7 @@ class _BottomBarTab extends StatelessWidget {
     required this.onTap,
   });
 
-  final LiquidGlassBottomBarTab tab;
+  final AdaptiveTab tab;
   final bool selected;
   final VoidCallback onTap;
 
@@ -290,7 +290,7 @@ class _BottomBarTab extends StatelessWidget {
 class _ExtraButton extends StatefulWidget {
   const _ExtraButton({required this.config, this.fake = false});
 
-  final LiquidGlassBottomBarExtraButton config;
+  final AdaptiveExtraButton config;
   final bool fake;
 
   @override

@@ -12,7 +12,8 @@ import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_wi
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 import 'package:futbolitonew/common/presentation/widgets/carousel/carousel_widget.dart';
-import 'package:futbolitonew/features/home/presentation/widgets/navbar.dart';
+import 'package:futbolitonew/features/home/presentation/widgets/glass_navbar.dart';
+import 'package:futbolitonew/features/home/presentation/widgets/adaptive_navbar.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
@@ -23,6 +24,18 @@ class HomePage extends ConsumerWidget {
     final user = ref.watch(authProvider).value;
 
     return ScaffoldFoundation(
+      bottomNavigationBar: Container(
+        child: AdaptiveBottomBar(
+          tabs: [
+            AdaptiveTab(label: 'test 1', icon: Icons.home),
+            AdaptiveTab(label: 'test 2', icon: Icons.search),
+          ],
+          onTabSelected: (index) {
+            print('Selected tab: $index');
+          },
+          selectedIndex: 0,
+        ),
+      ),
       useSafeArea: false,
       padding: EdgeInsets.zero,
       onRefresh: () => Future.delayed(const Duration(seconds: 1)),
@@ -59,17 +72,6 @@ class HomePage extends ConsumerWidget {
                   ),
                 ],
               ),
-            ),
-
-            LiquidGlassBottomBar(
-              tabs: [
-                LiquidGlassBottomBarTab(label: 'test 1', icon: Icons.home),
-                LiquidGlassBottomBarTab(label: 'test 2', icon: Icons.search),
-              ],
-              onTabSelected: (index) {
-                print('Selected tab: $index');
-              },
-              selectedIndex: 0,
             ),
           ],
         ),

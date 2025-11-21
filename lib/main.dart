@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
           onPrimary: ColorFoundation.dark.color,
           secondary: ColorFoundation.secondary.color,
           surface: ColorFoundation.surface.color,
+          tertiary: ColorFoundation.tertiary.color,
         ),
       ),
       routerConfig: appRouter,
