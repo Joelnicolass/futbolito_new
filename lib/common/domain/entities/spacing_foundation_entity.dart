@@ -21,4 +21,5 @@ extension SpacingExtension on SpacingFoundation {
 
 extension SpacerExtension on SpacingFoundation {
   SizedBox get spacer => SizedBox(height: value);
+  EdgeInsetsGeometry get all => EdgeInsets.all(value);
 }
