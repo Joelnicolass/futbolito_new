@@ -117,14 +117,14 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(32),
-                boxShadow: [
+                /* boxShadow: [
                   BoxShadow(
                     color: /* theme.bottomNavigationBarTheme.selectedItemColor! */
                         Colors.black.withAlpha(15),
                     blurRadius: 10,
                     blurStyle: BlurStyle.outer,
                   ),
-                ],
+                ], */
               ),
               child: Row(
                 spacing: widget.spacing,
