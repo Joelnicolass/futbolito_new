@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
 import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
-import 'package:futbolitonew/common/presentation/widgets/foundation/avatar/avatar.dart';
-import 'package:futbolitonew/common/presentation/widgets/foundation/button/button_foundation.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/avatar/avatar_foundation_widget.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/button/button_foundation_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_widget.dart';
-import 'package:futbolitonew/common/presentation/widgets/foundation/text/text.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_widget.dart';
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 import 'package:go_router/go_router.dart';
@@ -92,6 +92,7 @@ class HomePage extends ConsumerWidget {
             'my button'.toButtonFoundation(
               type: ButtonFoundationType.primary,
               onPressed: () => print('My Button Pressed'),
+              prefixIcon: Icon(Icons.star),
             ),
 
             'alternativo'.toButtonFoundation(

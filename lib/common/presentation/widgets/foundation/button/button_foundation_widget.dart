@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
-import 'package:futbolitonew/common/presentation/widgets/foundation/text/text.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_widget.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 
 enum ButtonFoundationType {
