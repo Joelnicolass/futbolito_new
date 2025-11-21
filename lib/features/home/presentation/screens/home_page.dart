@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
+import 'package:futbolitonew/common/domain/entities/padding_foundation_entity.dart';
 import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/avatar/avatar_foundation_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/button/button_foundation_widget.dart';
@@ -11,6 +12,7 @@ import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_wi
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 import 'package:futbolitonew/common/presentation/widgets/carousel/carousel_widget.dart';
+import 'package:futbolitonew/features/home/presentation/widgets/navbar.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
@@ -41,15 +43,33 @@ class HomePage extends ConsumerWidget {
           children: [
             Carousel(),
 
-            TextButton(
-              onPressed: () async {
-                await ref.read(authProvider.notifier).signOut();
-
-                if (context.mounted) context.go('/login');
-              },
-              child: Translate.logout.toTextFoundation(
-                type: TextType.bodyText1,
+            Padding(
+              padding: PaddingFoundation.md.horizontal,
+              child: Column(
+                spacing: SpacingFoundation.sm.value,
+                children: [
+                  Translate.logout.toButtonFoundation(
+                    type: .text,
+                    textColor: ColorFoundation.error.color,
+                    suffixIcon: Icon(Icons.logout),
+                    onPressed: () async {
+                      await ref.read(authProvider.notifier).signOut();
+                      if (context.mounted) context.go('/login');
+                    },
+                  ),
+                ],
               ),
+            ),
+
+            LiquidGlassBottomBar(
+              tabs: [
+                LiquidGlassBottomBarTab(label: 'test 1', icon: Icons.home),
+                LiquidGlassBottomBarTab(label: 'test 2', icon: Icons.search),
+              ],
+              onTabSelected: (index) {
+                print('Selected tab: $index');
+              },
+              selectedIndex: 0,
             ),
           ],
         ),

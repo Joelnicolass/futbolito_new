@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_gradient_background/animated_gradient_background.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:futbolitonew/common/domain/entities/padding_foundation_entity.dart';
 
@@ -76,6 +77,11 @@ class ScaffoldFoundation extends StatelessWidget {
       const double indicatorSize = 36.0;
       const double indicatorSpacing = 16.0;
       final double pullDistance = indicatorSize + indicatorSpacing;
+      // Offset adicional solo para Android
+      final double hiddenOffset =
+          defaultTargetPlatform == TargetPlatform.android
+          ? indicatorSize + 12.0
+          : indicatorSize;
 
       content = CustomRefreshIndicator(
         builder: (context, child, controller) {
@@ -86,7 +92,7 @@ class ScaffoldFoundation extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 children: [
                   Positioned(
-                    top: -indicatorSize + (controller.value * pullDistance),
+                    top: -hiddenOffset + (controller.value * pullDistance),
                     child: const CircularProgressIndicator.adaptive(),
                   ),
                   Transform.translate(
