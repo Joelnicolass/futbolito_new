@@ -3,6 +3,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 import 'package:motor/motor.dart';
 
@@ -85,6 +86,7 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
   Widget build(BuildContext context) {
     final brightness = MediaQuery.platformBrightnessOf(context);
     final isDark = brightness == Brightness.dark;
+    final theme = Theme.of(context);
 
     final glassSettings =
         widget.glassSettings ??
@@ -96,60 +98,78 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
           lightIntensity: isDark ? .7 : 1,
           ambientStrength: isDark ? .2 : .5,
           lightAngle: math.pi / 4,
-          glassColor: CupertinoTheme.of(
-            context,
-          ).barBackgroundColor.withValues(alpha: 0.6),
+          glassColor: theme.bottomNavigationBarTheme.backgroundColor!,
         );
 
-    return LiquidGlassLayer(
-      settings: glassSettings,
-      fake: widget.fake,
-      child: LiquidGlassBlendGroup(
-        blend: 10,
-        child: Padding(
-          padding: EdgeInsets.only(
-            right: widget.horizontalPadding,
-            left: widget.horizontalPadding,
-            bottom: widget.bottomPadding,
-            top: widget.bottomPadding,
-          ),
-          child: Row(
-            spacing: widget.spacing,
-            children: [
-              Expanded(
-                child: _TabIndicator(
-                  fake: widget.fake,
-                  visible: widget.showIndicator,
-                  tabIndex: widget.selectedIndex,
-                  tabCount: widget.tabs.length,
-                  indicatorColor: widget.indicatorColor,
-                  onTabChanged: widget.onTabSelected,
-                  child: LiquidGlass.grouped(
-                    clipBehavior: Clip.none,
-                    shape: const LiquidRoundedSuperellipse(borderRadius: 32),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      height: widget.barHeight,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          for (var i = 0; i < widget.tabs.length; i++)
-                            Expanded(
-                              child: _BottomBarTab(
-                                tab: widget.tabs[i],
-                                selected: widget.selectedIndex == i,
-                                onTap: () => widget.onTabSelected(i),
-                              ),
-                            ),
-                        ],
+    return Container(
+      child: LiquidGlassLayer(
+        settings: glassSettings,
+        fake: widget.fake,
+        child: LiquidGlassBlendGroup(
+          blend: 10,
+          child: Padding(
+            padding: EdgeInsets.only(
+              right: widget.horizontalPadding,
+              left: widget.horizontalPadding,
+              bottom: widget.bottomPadding,
+              top: widget.bottomPadding,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                boxShadow: [
+                  BoxShadow(
+                    color: /* theme.bottomNavigationBarTheme.selectedItemColor! */
+                        Colors.black.withAlpha(15),
+                    blurRadius: 10,
+                    blurStyle: BlurStyle.outer,
+                  ),
+                ],
+              ),
+              child: Row(
+                spacing: widget.spacing,
+                children: [
+                  Expanded(
+                    child: _TabIndicator(
+                      fake: widget.fake,
+                      visible: widget.showIndicator,
+                      tabIndex: widget.selectedIndex,
+                      tabCount: widget.tabs.length,
+                      indicatorColor: widget.indicatorColor,
+                      onTabChanged: widget.onTabSelected,
+                      child: LiquidGlass.grouped(
+                        clipBehavior: Clip.none,
+                        shape: const LiquidRoundedSuperellipse(
+                          borderRadius: 32,
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          height: widget.barHeight,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              for (var i = 0; i < widget.tabs.length; i++)
+                                Expanded(
+                                  child: _BottomBarTab(
+                                    tab: widget.tabs[i],
+                                    selected: widget.selectedIndex == i,
+                                    onTap: () => widget.onTabSelected(i),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  if (widget.extraButton != null)
+                    _ExtraButton(
+                      config: widget.extraButton!,
+                      fake: widget.fake,
+                    ),
+                ],
               ),
-              if (widget.extraButton != null)
-                _ExtraButton(config: widget.extraButton!, fake: widget.fake),
-            ],
+            ),
           ),
         ),
       ),
@@ -198,10 +218,10 @@ class _BottomBarTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = CupertinoTheme.of(context);
+    final theme = Theme.of(context);
     final iconColor = selected
-        ? theme.primaryColor
-        : theme.textTheme.textStyle.color;
+        ? theme.bottomNavigationBarTheme.selectedItemColor
+        : theme.bottomNavigationBarTheme.unselectedItemColor;
 
     return GestureDetector(
       onTap: onTap,
@@ -508,10 +528,10 @@ class _TabIndicatorState extends State<_TabIndicator>
 
   @override
   Widget build(BuildContext context) {
-    final theme = CupertinoTheme.of(context);
+    final theme = Theme.of(context);
     final indicatorColor =
         widget.indicatorColor ??
-        theme.textTheme.textStyle.color?.withValues(alpha: .1);
+        theme.bottomNavigationBarTheme.selectedItemColor!.withAlpha(40);
     final targetAlignment = computeXAlignmentForTab(widget.tabIndex);
 
     return GestureDetector(
@@ -583,8 +603,8 @@ class _TabIndicatorState extends State<_TabIndicator>
                           refractiveIndex: 1.15,
                           thickness: 20,
                           lightIntensity: 2,
-                          chromaticAberration: .5,
-                          blur: 0,
+                          chromaticAberration: 5,
+                          blur: 0.1,
                         ),
 
                         shape: const LiquidRoundedSuperellipse(

@@ -29,6 +29,11 @@ class MyApp extends StatelessWidget {
           actionsPadding: PaddingFoundation.md.horizontal,
           titleSpacing: SpacingFoundation.md.value,
         ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: ColorFoundation.surface.color,
+          selectedItemColor: ColorFoundation.secondary.color,
+          unselectedItemColor: ColorFoundation.dark.color,
+        ),
         colorScheme: ColorScheme.light(
           primary: ColorFoundation.primary800.color,
           primaryContainer: ColorFoundation.background.color,

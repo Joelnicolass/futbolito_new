@@ -27,8 +27,10 @@ class HomePage extends ConsumerWidget {
       bottomNavigationBar: Container(
         child: AdaptiveBottomBar(
           tabs: [
-            AdaptiveTab(label: 'test 1', icon: Icons.home),
-            AdaptiveTab(label: 'test 2', icon: Icons.search),
+            AdaptiveTab(label: 'Inicio', icon: Icons.home_outlined),
+            AdaptiveTab(label: 'Partidos', icon: Icons.sports_soccer),
+            AdaptiveTab(label: 'Equipos', icon: Icons.shield_outlined),
+            AdaptiveTab(label: 'Perfil', icon: Icons.person_2_outlined),
           ],
           onTabSelected: (index) {
             print('Selected tab: $index');
@@ -72,6 +74,34 @@ class HomePage extends ConsumerWidget {
                   ),
                 ],
               ),
+            ),
+
+            SpacingFoundation.lg.spacer,
+            AdaptiveBottomBar(
+              tabs: [
+                AdaptiveTab(label: 'Inicio', icon: Icons.home_outlined),
+                AdaptiveTab(label: 'Partidos', icon: Icons.sports_soccer),
+                AdaptiveTab(label: 'Equipos', icon: Icons.shield_outlined),
+                AdaptiveTab(label: 'Perfil', icon: Icons.person_2_outlined),
+              ],
+              onTabSelected: (index) {
+                print('Selected tab: $index');
+              },
+              selectedIndex: 0,
+            ),
+
+            AdaptiveBottomBar(
+              forceStyle: .material,
+              tabs: [
+                AdaptiveTab(label: 'Inicio', icon: Icons.home_outlined),
+                AdaptiveTab(label: 'Partidos', icon: Icons.sports_soccer),
+                AdaptiveTab(label: 'Equipos', icon: Icons.shield_outlined),
+                AdaptiveTab(label: 'Perfil', icon: Icons.person_2_outlined),
+              ],
+              onTabSelected: (index) {
+                print('Selected tab: $index');
+              },
+              selectedIndex: 0,
             ),
           ],
         ),

@@ -51,7 +51,7 @@ class MaterialBottomBar extends StatelessWidget {
             child: Container(
               height: barHeight,
               decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
+                color: theme.bottomNavigationBarTheme.backgroundColor,
                 borderRadius: BorderRadius.circular(32),
               ),
               clipBehavior: Clip.antiAlias,
@@ -98,8 +98,8 @@ class _MaterialTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final iconColor = selected
-        ? theme.colorScheme.primary
-        : theme.colorScheme.onSurfaceVariant;
+        ? theme.bottomNavigationBarTheme.selectedItemColor
+        : theme.bottomNavigationBarTheme.unselectedItemColor;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
