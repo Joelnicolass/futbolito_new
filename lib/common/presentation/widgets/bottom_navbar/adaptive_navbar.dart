@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:futbolitonew/features/home/presentation/widgets/glass_navbar.dart';
-import 'package:futbolitonew/features/home/presentation/widgets/material_navbar.dart';
+import 'package:futbolitonew/common/presentation/widgets/bottom_navbar/glass_navbar.dart';
+import 'package:futbolitonew/common/presentation/widgets/bottom_navbar/material_navbar.dart';
 
 enum BottomBarStyle { glass, material }
 

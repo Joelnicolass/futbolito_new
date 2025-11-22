@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:futbolitonew/features/home/presentation/widgets/glass_navbar.dart';
+import 'package:futbolitonew/common/presentation/widgets/bottom_navbar/glass_navbar.dart';
 
 /// Material Design implementation of the bottom navigation bar
 /// This provides a native Material Design experience for Android devices

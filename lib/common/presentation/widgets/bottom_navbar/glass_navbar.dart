@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_glass_renderer/experimental.dart';
 import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 import 'package:motor/motor.dart';
 
@@ -147,18 +148,21 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           height: widget.barHeight,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              for (var i = 0; i < widget.tabs.length; i++)
-                                Expanded(
-                                  child: _BottomBarTab(
-                                    tab: widget.tabs[i],
-                                    selected: widget.selectedIndex == i,
-                                    onTap: () => widget.onTabSelected(i),
+                          child: GlassGlow(
+                            glowRadius: 0.5,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                for (var i = 0; i < widget.tabs.length; i++)
+                                  Expanded(
+                                    child: _BottomBarTab(
+                                      tab: widget.tabs[i],
+                                      selected: widget.selectedIndex == i,
+                                      onTap: () => widget.onTabSelected(i),
+                                    ),
                                   ),
-                                ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
