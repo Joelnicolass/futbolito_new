@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
 import 'package:futbolitonew/common/domain/entities/padding_foundation_entity.dart';
 import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
-import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_widget.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_foundation_widget.dart';
 
 class CardHeader extends StatelessWidget {
   const CardHeader({super.key, this.title, this.subtitle, this.icon});

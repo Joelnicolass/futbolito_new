@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_widget.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_foundation_widget.dart';
 
 class AppleSignInButton extends StatelessWidget {
   final VoidCallback onPressed;

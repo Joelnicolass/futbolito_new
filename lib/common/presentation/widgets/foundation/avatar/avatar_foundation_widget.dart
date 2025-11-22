@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futbolitonew/common/helpers/color_helpers.dart';
-import 'package:futbolitonew/common/presentation/widgets/foundation/skeleton/skeleton_widget.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/skeleton/skeleton_foundation_widget.dart';
 
 class AvatarFoundation extends StatelessWidget {
   const AvatarFoundation({

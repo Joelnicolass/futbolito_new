@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_foundation_widget.dart';
 
-import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_widget.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_foundation_widget.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 
 class MatchesPage extends ConsumerWidget {

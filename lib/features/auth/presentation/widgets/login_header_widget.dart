@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
 import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
-import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_widget.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_foundation_widget.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 
 /// Widget del encabezado del login (logo y textos)

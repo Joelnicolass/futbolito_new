@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
-import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_widget.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_foundation_widget.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
 
 enum ButtonFoundationType {
@@ -211,6 +211,7 @@ class ButtonFoundation extends StatelessWidget {
             padding: effectivePadding,
             shape: shape,
             minimumSize: Size.fromHeight(sizeConfig.minHeight),
+            elevation: 0,
           ),
           child: buttonContent,
         );
