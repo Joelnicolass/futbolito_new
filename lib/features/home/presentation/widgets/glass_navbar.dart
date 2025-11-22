@@ -98,7 +98,9 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
           lightIntensity: isDark ? .7 : 1,
           ambientStrength: isDark ? .2 : .5,
           lightAngle: math.pi / 4,
-          glassColor: theme.bottomNavigationBarTheme.backgroundColor!,
+          glassColor: theme.bottomNavigationBarTheme.backgroundColor!.withAlpha(
+            100,
+          ),
         );
 
     return Container(

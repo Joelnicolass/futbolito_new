@@ -129,51 +129,43 @@ class Card extends StatelessWidget {
   Widget build(BuildContext context) {
     return FadeIn(
       delay: Duration(milliseconds: 100 * index),
-      child: Padding(
-        padding: EdgeInsets.only(
-          bottom: PaddingFoundation.md.value,
-          top: PaddingFoundation.md.value,
-          left: index == 0 ? PaddingFoundation.md.value : 0,
-          right: index == 9 ? PaddingFoundation.md.value : 0,
-        ),
-        child: GestureDetector(
-          onTap: () => onPressed?.call(),
-          child: Container(
-            height: height,
-            width: width ?? 200,
-            padding: padding ?? EdgeInsets.all(PaddingFoundation.md.value),
-            decoration: BoxDecoration(
-              color: backgroundColor ?? ColorFoundation.cardBackground.color,
-              boxShadow:
-                  boxShadow ??
-                  [
-                    BoxShadow(
-                      color: Colors.black.withAlpha(20),
-                      blurRadius: 10,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-              borderRadius: borderRadius ?? BorderRadius.circular(25),
-            ),
-            margin: SpacingFoundation.xs.all,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Header Section
-                if (header != null) ...[
-                  header!,
-                  SizedBox(height: SpacingFoundation.md.value),
+      child: GestureDetector(
+        onTap: () => onPressed?.call(),
+        child: Container(
+          height: height,
+          width: width ?? 200,
+          padding: padding ?? EdgeInsets.all(PaddingFoundation.md.value),
+          decoration: BoxDecoration(
+            color: backgroundColor ?? ColorFoundation.cardBackground.color,
+            boxShadow:
+                boxShadow ??
+                [
+                  BoxShadow(
+                    color: Colors.black.withAlpha(20),
+                    blurRadius: 10,
+                    offset: Offset(0, 2),
+                  ),
                 ],
-                // Body Section
-                if (body != null) ...[
-                  Expanded(child: body!),
-                  SizedBox(height: SpacingFoundation.md.value),
-                ],
-                // Footer Section
-                if (footer != null) footer!,
+            borderRadius: borderRadius ?? BorderRadius.circular(25),
+          ),
+          margin: SpacingFoundation.xs.all,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Header Section
+              if (header != null) ...[
+                header!,
+                SizedBox(height: SpacingFoundation.md.value),
               ],
-            ),
+              // Body Section
+              if (body != null) ...[
+                Expanded(child: body!),
+                SizedBox(height: SpacingFoundation.md.value),
+              ],
+              // Footer Section
+              if (footer != null) footer!,
+            ],
           ),
         ),
       ),
