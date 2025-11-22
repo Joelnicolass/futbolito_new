@@ -28,7 +28,7 @@ class HomePage extends ConsumerWidget {
           tabs: [
             Tab(icon: Icon(Icons.sports_soccer, size: 20), text: 'Feed'),
             Tab(
-              icon: Icon(Icons.notifications_active_outlined, size: 20),
+              icon: Icon(Icons.notifications_none_rounded, size: 20),
               text: 'Novedades',
             ),
           ],

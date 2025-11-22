@@ -60,7 +60,7 @@ class MainNavigationWidget extends ConsumerWidget {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
-        title: currentTitle.toTextFoundation(type: TextType.headline1),
+        title: currentTitle.toTextFoundation(type: TextType.headline2),
         shadowColor: ColorFoundation.background.color,
         surfaceTintColor: ColorFoundation.background.color,
         actions: [
