@@ -128,6 +128,7 @@ class ButtonFoundation extends StatelessWidget {
       color: effectiveTextColor,
       fontSize: textStyle?.fontSize ?? sizeConfig.fontSize,
       decoration: styleConfig.underline ? TextDecoration.underline : null,
+      decorationColor: effectiveTextColor,
     );
 
     final buttonContent = Row(
