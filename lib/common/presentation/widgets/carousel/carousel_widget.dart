@@ -18,8 +18,10 @@ class Carousel extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.only(
-              left: index == 0 ? PaddingFoundation.md.value : 8,
-              right: index == 9 ? PaddingFoundation.md.value : 8,
+              left: index == 0 ? PaddingFoundation.sm.value : 0,
+              right: index == 9
+                  ? PaddingFoundation.sm.value
+                  : PaddingFoundation.sm.value,
               top: PaddingFoundation.md.value,
               bottom: PaddingFoundation.md.value,
             ),

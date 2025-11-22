@@ -14,6 +14,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ScaffoldContent(
       child: Column(
+        crossAxisAlignment: .start,
         spacing: SpacingFoundation.md.value,
         children: [HeaderSection(), const Carousel()],
       ),
@@ -31,9 +32,11 @@ class HeaderSection extends StatelessWidget {
       child: Column(
         spacing: SpacingFoundation.sm.value,
         crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
           SpacingFoundation.lg.spacer,
           Translate.homeWelcome.toTextFoundation(type: TextType.bodyText1),
+
           Translate.homeDescription.toTextFoundation(type: TextType.bodyText2),
         ],
       ),
