@@ -15,25 +15,26 @@ class HomePage extends ConsumerWidget {
     return ScaffoldContent(
       child: Column(
         spacing: SpacingFoundation.md.value,
+        children: [HeaderSection(), const Carousel()],
+      ),
+    );
+  }
+}
+
+class HeaderSection extends StatelessWidget {
+  const HeaderSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: PaddingFoundation.md.horizontal,
+      child: Column(
+        spacing: SpacingFoundation.sm.value,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Carousel(),
-          Padding(
-            padding: PaddingFoundation.md.horizontal,
-            child: Column(
-              spacing: SpacingFoundation.sm.value,
-              children: [
-                Translate.homeWelcome.toTextFoundation(
-                  type: TextType.headline2,
-                ),
-                Translate.homeDescription.toTextFoundation(
-                  type: TextType.bodyText1,
-                ),
-              ],
-            ),
-          ),
-          const Carousel(),
-          const Carousel(),
-          const Carousel(),
+          SpacingFoundation.lg.spacer,
+          Translate.homeWelcome.toTextFoundation(type: TextType.bodyText1),
+          Translate.homeDescription.toTextFoundation(type: TextType.bodyText2),
         ],
       ),
     );

@@ -17,7 +17,12 @@ class Carousel extends StatelessWidget {
         itemExtent: MediaQuery.of(context).size.width * 0.8,
         itemBuilder: (context, index) {
           return Padding(
-            padding: PaddingFoundation.md.all,
+            padding: EdgeInsets.only(
+              left: index == 0 ? PaddingFoundation.md.value : 8,
+              right: index == 9 ? PaddingFoundation.md.value : 8,
+              top: PaddingFoundation.md.value,
+              bottom: PaddingFoundation.md.value,
+            ),
             child: Card(
               index: index,
               onPressed: () {

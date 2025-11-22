@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_foundation_widget.dart';
 
 import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_widget.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
@@ -9,20 +10,24 @@ class TeamsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.shield,
-            size: 64,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-          const SizedBox(height: 16),
-          Translate.teamsTitle.toTextFoundation(type: TextType.headline2),
-          const SizedBox(height: 8),
-          Translate.teamsDescription.toTextFoundation(type: TextType.bodyText1),
-        ],
+    return ScaffoldContent(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.shield,
+              size: 64,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(height: 16),
+            Translate.teamsTitle.toTextFoundation(type: TextType.headline2),
+            const SizedBox(height: 8),
+            Translate.teamsDescription.toTextFoundation(
+              type: TextType.bodyText1,
+            ),
+          ],
+        ),
       ),
     );
   }

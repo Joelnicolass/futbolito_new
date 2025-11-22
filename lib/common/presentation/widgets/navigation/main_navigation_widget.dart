@@ -78,7 +78,11 @@ class MainNavigationWidget extends ConsumerWidget {
           ),
         ],
       ),
-      body: IndexedStack(index: currentIndex, children: _pages),
+      body: IndexedStack(
+        key: ValueKey(currentIndex),
+        index: currentIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: AdaptiveBottomBar(
         tabs: tabs,
         selectedIndex: currentIndex,

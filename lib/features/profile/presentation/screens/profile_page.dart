@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_foundation_widget.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
@@ -18,43 +19,45 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authProvider).value;
 
-    return Center(
-      child: Padding(
-        padding: PaddingFoundation.lg.all,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          spacing: SpacingFoundation.lg.value,
-          children: [
-            AvatarFoundation(
-              showBorder: true,
-              imageUrl: user?.photoUrl,
-              fallbackText: user?.displayName ?? user?.email,
-              radius: 60.0,
-            ),
-            Column(
-              spacing: SpacingFoundation.xs.value,
-              children: [
-                (user?.displayName ??
-                        Translate.userDefault.toTextFoundationString())
-                    .toTextFoundation(type: TextType.headline2),
-                if (user?.email != null)
-                  (user?.email ?? '').toTextFoundation(
-                    type: TextType.bodyText1,
-                  ),
-              ],
-            ),
-            SpacingFoundation.xl.spacer,
-            Translate.logout.toButtonFoundation(
-              type: .text,
-              textColor: ColorFoundation.error.color,
-              suffixIcon: const Icon(Icons.logout),
-              onPressed: () async {
-                await ref.read(authProvider.notifier).signOut();
-                if (context.mounted) context.go('/login');
-              },
-            ),
-          ],
+    return ScaffoldContent(
+      child: Center(
+        child: Padding(
+          padding: PaddingFoundation.lg.all,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            spacing: SpacingFoundation.lg.value,
+            children: [
+              AvatarFoundation(
+                showBorder: true,
+                imageUrl: user?.photoUrl,
+                fallbackText: user?.displayName ?? user?.email,
+                radius: 60.0,
+              ),
+              Column(
+                spacing: SpacingFoundation.xs.value,
+                children: [
+                  (user?.displayName ??
+                          Translate.userDefault.toTextFoundationString())
+                      .toTextFoundation(type: TextType.headline2),
+                  if (user?.email != null)
+                    (user?.email ?? '').toTextFoundation(
+                      type: TextType.bodyText1,
+                    ),
+                ],
+              ),
+              SpacingFoundation.xl.spacer,
+              Translate.logout.toButtonFoundation(
+                type: .text,
+                textColor: ColorFoundation.error.color,
+                suffixIcon: const Icon(Icons.logout),
+                onPressed: () async {
+                  await ref.read(authProvider.notifier).signOut();
+                  if (context.mounted) context.go('/login');
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
