@@ -6,13 +6,54 @@ import 'package:futbolitonew/common/presentation/widgets/carousel/carousel_widge
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_foundation_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_foundation_widget.dart';
 import 'package:futbolitonew/core/intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: TabBar(
+          overlayColor: WidgetStateProperty.fromMap({
+            WidgetState.pressed: Colors.transparent,
+          }),
+          labelStyle: TextStyle(
+            fontSize: 12,
+            fontFamily: GoogleFonts.quicksand().fontFamily,
+          ),
+
+          tabs: [
+            Tab(icon: Icon(Icons.sports_soccer, size: 20), text: 'Feed'),
+            Tab(
+              icon: Icon(Icons.notifications_active_outlined, size: 20),
+              text: 'Novedades',
+            ),
+          ],
+        ),
+        body: const TabBarView(
+          controller: null,
+          children: [
+            Page1(),
+            Center(child: Text('Page 2')),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Page1 extends StatelessWidget {
+  const Page1({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return ScaffoldContent(
+      onRefresh: () async {
+        await Future.delayed(const Duration(seconds: 2));
+      },
       child: Column(
         crossAxisAlignment: .start,
         spacing: SpacingFoundation.md.value,

@@ -98,3 +98,21 @@ extension ColorFoundationHexExtension on ColorFoundation {
   String get hex => name.replaceAll('#', '0xFF');
   Color get color => Color(int.parse(hex));
 }
+
+extension ColorFoundationMaterialExtension on ColorFoundation {
+  MaterialColor get materialColor {
+    Map<int, Color> colorSwatch = {
+      50: color.withOpacity(0.1),
+      100: color.withOpacity(0.2),
+      200: color.withOpacity(0.3),
+      300: color.withOpacity(0.4),
+      400: color.withOpacity(0.5),
+      500: color.withOpacity(0.6),
+      600: color.withOpacity(0.7),
+      700: color.withOpacity(0.8),
+      800: color.withOpacity(0.9),
+      900: color.withOpacity(1.0),
+    };
+    return MaterialColor(color.value, colorSwatch);
+  }
+}
