@@ -128,6 +128,7 @@ class ButtonFoundation extends StatelessWidget {
       color: effectiveTextColor,
       fontSize: textStyle?.fontSize ?? sizeConfig.fontSize,
       decoration: styleConfig.underline ? TextDecoration.underline : null,
+      // color de underline igual al color del texto
       decorationColor: effectiveTextColor,
     );
 
@@ -213,6 +214,8 @@ class ButtonFoundation extends StatelessWidget {
             shape: shape,
             minimumSize: Size.fromHeight(sizeConfig.minHeight),
             elevation: 0,
+            disabledBackgroundColor: ColorFoundation.disabled.color,
+            shadowColor: Colors.transparent,
           ),
           child: buttonContent,
         );

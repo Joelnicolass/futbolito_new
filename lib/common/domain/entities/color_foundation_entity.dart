@@ -35,7 +35,7 @@ extension ColorFoundationExtension on ColorFoundation {
   String get name {
     switch (this) {
       case ColorFoundation.background:
-        return '#FFF8E1';
+        return '#FFF9F0';
       case ColorFoundation.surface:
         return '#FFFFFF';
       case ColorFoundation.primary:
@@ -79,7 +79,7 @@ extension ColorFoundationExtension on ColorFoundation {
       case ColorFoundation.disabled:
         return '#6C757D';
       case ColorFoundation.cardBackground:
-        return '#FFFBF6';
+        return '#FFFFFF';
       case ColorFoundation.textPrimary:
         return '#4A4A4A';
       case ColorFoundation.textSecondary:
