@@ -62,6 +62,7 @@ class LiquidGlassBottomBar extends StatefulWidget {
     this.showIndicator = true,
     this.indicatorColor,
     this.fake = false,
+    this.hasNotch = false,
   });
 
   final List<AdaptiveTab> tabs;
@@ -76,12 +77,27 @@ class LiquidGlassBottomBar extends StatefulWidget {
   final bool showIndicator;
   final Color? indicatorColor;
   final bool fake;
+  final bool hasNotch;
 
   @override
   State<LiquidGlassBottomBar> createState() => _LiquidGlassBottomBarState();
 }
 
 class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
+  // Calcula el índice efectivo considerando el notch
+  int _getEffectiveIndex(int tabIndex) {
+    if (!widget.hasNotch) return tabIndex;
+
+    final midPoint = (widget.tabs.length / 2).floor();
+    // Si el índice es mayor o igual al punto medio, sumamos 1 para considerar el espacio del notch
+    return tabIndex >= midPoint ? tabIndex + 1 : tabIndex;
+  }
+
+  // Calcula el conteo efectivo de elementos considerando el notch
+  int get _effectiveCount {
+    return widget.hasNotch ? widget.tabs.length + 1 : widget.tabs.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     final brightness = MediaQuery.platformBrightnessOf(context);
@@ -119,14 +135,6 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(32),
-                /* boxShadow: [
-                  BoxShadow(
-                    color: /* theme.bottomNavigationBarTheme.selectedItemColor! */
-                        Colors.black.withAlpha(15),
-                    blurRadius: 10,
-                    blurStyle: BlurStyle.outer,
-                  ),
-                ], */
               ),
               child: Row(
                 spacing: widget.spacing,
@@ -135,10 +143,26 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
                     child: _TabIndicator(
                       fake: widget.fake,
                       visible: widget.showIndicator,
-                      tabIndex: widget.selectedIndex,
-                      tabCount: widget.tabs.length,
+                      tabIndex: _getEffectiveIndex(widget.selectedIndex),
+                      tabCount: _effectiveCount,
                       indicatorColor: widget.indicatorColor,
-                      onTabChanged: widget.onTabSelected,
+                      onTabChanged: (effectiveIndex) {
+                        // Convertir el índice efectivo de vuelta al índice real del tab
+                        if (!widget.hasNotch) {
+                          widget.onTabSelected(effectiveIndex);
+                          return;
+                        }
+
+                        final midPoint = (widget.tabs.length / 2).floor();
+                        final realIndex = effectiveIndex > midPoint
+                            ? effectiveIndex - 1
+                            : effectiveIndex;
+
+                        // Evitar seleccionar el espacio del notch
+                        if (effectiveIndex != midPoint) {
+                          widget.onTabSelected(realIndex);
+                        }
+                      },
                       child: LiquidGlass.grouped(
                         clipBehavior: Clip.none,
                         shape: const LiquidRoundedSuperellipse(
@@ -152,7 +176,11 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                for (var i = 0; i < widget.tabs.length; i++)
+                                for (
+                                  var i = 0;
+                                  i < widget.tabs.length;
+                                  i++
+                                ) ...[
                                   Expanded(
                                     child: _BottomBarTab(
                                       tab: widget.tabs[i],
@@ -160,6 +188,11 @@ class _LiquidGlassBottomBarState extends State<LiquidGlassBottomBar> {
                                       onTap: () => widget.onTabSelected(i),
                                     ),
                                   ),
+                                  // Agregar espacio en el medio para el FAB
+                                  if (widget.hasNotch &&
+                                      i == (widget.tabs.length / 2 - 1).floor())
+                                    const Expanded(child: SizedBox()),
+                                ],
                               ],
                             ),
                           ),

@@ -18,6 +18,7 @@ class MaterialBottomBar extends StatelessWidget {
     this.showIndicator = true,
     this.indicatorColor,
     this.fake = false,
+    this.hasNotch = false,
   });
 
   final List<AdaptiveTab> tabs;
@@ -32,6 +33,7 @@ class MaterialBottomBar extends StatelessWidget {
   final bool showIndicator;
   final Color? indicatorColor;
   final bool fake; // Ignored in Material implementation
+  final bool hasNotch;
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +58,8 @@ class MaterialBottomBar extends StatelessWidget {
               ),
               clipBehavior: Clip.antiAlias,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  for (var i = 0; i < tabs.length; i++)
+                  for (var i = 0; i < tabs.length; i++) ...[
                     Expanded(
                       child: _MaterialTab(
                         tab: tabs[i],
@@ -67,6 +68,10 @@ class MaterialBottomBar extends StatelessWidget {
                         indicatorColor: indicatorColor ?? Colors.transparent,
                       ),
                     ),
+                    // Espacio del notch en el medio
+                    if (hasNotch && i == (tabs.length / 2 - 1).floor())
+                      const Expanded(child: SizedBox()),
+                  ],
                 ],
               ),
             ),
@@ -101,40 +106,39 @@ class _MaterialTab extends StatelessWidget {
         ? theme.bottomNavigationBarTheme.selectedItemColor
         : theme.bottomNavigationBarTheme.unselectedItemColor;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(32),
+        customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(32),
-          customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(32),
-          ),
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: selected ? 18 : 12,
-                    vertical: selected ? 4 : 2,
-                  ),
-                  decoration: BoxDecoration(
-                    color: selected ? indicatorColor : Colors.transparent,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Icon(
-                    selected ? (tab.selectedIcon ?? tab.icon) : tab.icon,
-                    color: iconColor,
-                    size: 22,
-                  ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: EdgeInsets.symmetric(
+                  horizontal: selected ? 18 : 12,
+                  vertical: selected ? 4 : 2,
                 ),
-                const SizedBox(height: 2),
-                Text(
+                decoration: BoxDecoration(
+                  color: selected ? indicatorColor : Colors.transparent,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Icon(
+                  selected ? (tab.selectedIcon ?? tab.icon) : tab.icon,
+                  color: iconColor,
+                  size: 22,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Text(
                   tab.label,
                   maxLines: 1,
                   textAlign: TextAlign.center,
@@ -145,8 +149,8 @@ class _MaterialTab extends StatelessWidget {
                     fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

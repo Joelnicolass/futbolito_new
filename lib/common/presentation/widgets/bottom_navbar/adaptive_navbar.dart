@@ -26,6 +26,7 @@ class AdaptiveBottomBar extends StatelessWidget {
     this.indicatorColor,
     this.fake = false,
     this.forceStyle,
+    this.hasNotch = false,
   });
 
   final List<AdaptiveTab> tabs;
@@ -44,6 +45,7 @@ class AdaptiveBottomBar extends StatelessWidget {
   /// Force a specific style regardless of platform
   /// Options: 'glass', 'material', or null for automatic
   final BottomBarStyle? forceStyle;
+  final bool hasNotch;
 
   bool get _shouldUseLiquidGlass {
     if (forceStyle == BottomBarStyle.glass) return true;
@@ -70,6 +72,7 @@ class AdaptiveBottomBar extends StatelessWidget {
         showIndicator: showIndicator,
         indicatorColor: indicatorColor,
         fake: fake,
+        hasNotch: hasNotch,
       );
     }
 
@@ -86,6 +89,7 @@ class AdaptiveBottomBar extends StatelessWidget {
       showIndicator: showIndicator,
       indicatorColor: indicatorColor,
       fake: fake,
+      hasNotch: hasNotch,
     );
   }
 }

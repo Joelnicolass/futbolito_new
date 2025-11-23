@@ -59,6 +59,29 @@ class MainNavigationWidget extends ConsumerWidget {
 
     return Scaffold(
       extendBody: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.only(bottom: 10),
+            alignment: Alignment.bottomCenter,
+            child: FloatingActionButton(
+              onPressed: () {
+                // Acción del botón central
+              },
+              elevation: 2,
+              highlightElevation: 0,
+              child: Icon(
+                Icons.add,
+                color: ColorFoundation.background.color,
+                size: 25,
+              ),
+              backgroundColor: ColorFoundation.secondary.color,
+              shape: CircleBorder(),
+            ),
+          ),
+        ],
+      ),
       appBar: AppBar(
         title: currentTitle.toTextFoundation(type: TextType.headline2),
         shadowColor: ColorFoundation.background.color,
@@ -78,11 +101,13 @@ class MainNavigationWidget extends ConsumerWidget {
         children: _pages,
       ),
       bottomNavigationBar: AdaptiveBottomBar(
+        forceStyle: .material,
         tabs: tabs,
         selectedIndex: currentIndex,
         onTabSelected: (index) {
           ref.read(navigationIndexProvider.notifier).changeTab(index);
         },
+        hasNotch: true,
       ),
     );
   }
