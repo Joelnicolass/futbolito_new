@@ -101,7 +101,6 @@ class MainNavigationWidget extends ConsumerWidget {
         children: _pages,
       ),
       bottomNavigationBar: AdaptiveBottomBar(
-        forceStyle: .material,
         tabs: tabs,
         selectedIndex: currentIndex,
         onTabSelected: (index) {

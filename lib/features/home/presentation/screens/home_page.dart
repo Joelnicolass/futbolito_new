@@ -57,7 +57,15 @@ class Page1 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: .start,
         spacing: SpacingFoundation.md.value,
-        children: [HeaderSection(), const Carousel()],
+        children: [
+          HeaderSection(),
+          const Carousel(),
+          const Carousel(),
+          const Carousel(),
+          const Carousel(),
+          const Carousel(),
+          const Carousel(),
+        ],
       ),
     );
   }
