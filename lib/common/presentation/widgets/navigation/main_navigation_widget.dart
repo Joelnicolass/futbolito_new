@@ -77,6 +77,7 @@ class MainNavigationWidget extends ConsumerWidget {
                 size: 25,
               ),
               backgroundColor: ColorFoundation.secondary.color,
+              foregroundColor: ColorFoundation.white.color,
               shape: CircleBorder(),
             ),
           ),

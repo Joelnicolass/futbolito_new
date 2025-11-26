@@ -33,6 +33,7 @@ class ButtonFoundation extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.iconSpacing,
+    this.visualDensity,
   });
 
   final String? text;
@@ -53,6 +54,8 @@ class ButtonFoundation extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final double? iconSpacing;
+
+  final VisualDensity? visualDensity;
 
   static final Map<ButtonFoundationType, _ButtonStyleConfig> _typeStyles = {
     ButtonFoundationType.primary: _ButtonStyleConfig(
@@ -216,6 +219,8 @@ class ButtonFoundation extends StatelessWidget {
             elevation: 0,
             disabledBackgroundColor: ColorFoundation.disabled.color,
             shadowColor: Colors.transparent,
+            foregroundColor: ColorFoundation.white.color,
+            visualDensity: visualDensity,
           ),
           child: buttonContent,
         );

@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: ColorFoundation.dark.color,
         ),
         colorScheme: ColorScheme.light(
-          primary: ColorFoundation.primary800.color,
+          primary: ColorFoundation.primary.color,
           primaryContainer: ColorFoundation.background.color,
           onPrimary: ColorFoundation.dark.color,
           secondary: ColorFoundation.secondary.color,

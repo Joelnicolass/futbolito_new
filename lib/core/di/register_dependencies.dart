@@ -7,6 +7,8 @@ import 'package:futbolitonew/core/helpers/push_notification_service.dart';
 import 'package:futbolitonew/core/navigator/router.dart';
 import 'package:futbolitonew/features/auth/di/register_dependencies.dart'
     as auth_di;
+import 'package:futbolitonew/features/home/di/register_dependencies.dart'
+    as invitations_di;
 import 'package:futbolitonew/firebase_options.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -42,6 +44,7 @@ Future<void> configureDependencies() async {
 
   /// Features
   auth_di.authRegisterDependencies();
+  invitations_di.invitationsRegisterDependencies();
 
   //  getIt.registerSingleton<ApiClient>(ApiClient());
 }

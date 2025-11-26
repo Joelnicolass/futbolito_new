@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:futbolitonew/common/domain/entities/padding_foundation_entity.dart';
-import 'package:futbolitonew/common/presentation/widgets/card/card_widget.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/card/card_body.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/card/card_footer_with_actions.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/card/card_header.dart';
+import 'package:futbolitonew/common/presentation/widgets/foundation/card/card_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/button/button_foundation_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/text/text_foundation_widget.dart';
 
@@ -25,7 +28,7 @@ class Carousel extends StatelessWidget {
               top: PaddingFoundation.md.value,
               bottom: PaddingFoundation.md.value,
             ),
-            child: Card(
+            child: CardFoundation(
               index: index,
               onPressed: () {
                 print('Card ${index + 1} pressed');

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
 import 'package:futbolitonew/common/helpers/color_helpers.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/skeleton/skeleton_foundation_widget.dart';
 
@@ -149,6 +150,10 @@ class _AvatarDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.person, size: radius, color: Colors.grey);
+    return Icon(
+      Icons.person,
+      size: radius,
+      color: ColorFoundation.primary.color,
+    );
   }
 }
