@@ -1,6 +1,16 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class InvitationsRemoteDataSource {
+abstract class InvitaitonFriendDatasource {
+  Future<List<Map<String, dynamic>>> fetchPendingFriendRequests({
+    required String userId,
+    required String email,
+  });
+  Future<void> sendInvitation(String email);
+  Future<void> acceptInvitation(String invitationId);
+  Future<void> declineInvitation(String invitationId);
+}
+
+class InvitationsRemoteDataSource implements InvitaitonFriendDatasource {
   final SupabaseClient _supabaseClient;
 
   InvitationsRemoteDataSource({SupabaseClient? supabaseClient})
@@ -20,8 +30,6 @@ class InvitationsRemoteDataSource {
           .eq('status', 'pending')
           .order('created_at', ascending: false);
 
-      print('Response Friendships: $responseFriendships');
-
       final responseInvitations = await _supabaseClient
           .from('invitations')
           .select(
@@ -32,8 +40,6 @@ class InvitationsRemoteDataSource {
           .or('receiver_id.eq.${userId},receiver_email.ilike.*${email}*')
           .order('created_at', ascending: false);
 
-      print('Response Invitations: $responseInvitations');
-
       final combinedResults = [...responseFriendships, ...responseInvitations];
 
       return combinedResults;
@@ -42,5 +48,23 @@ class InvitationsRemoteDataSource {
         'Error al obtener solicitudes de amistad: ${e.toString()}',
       );
     }
+  }
+
+  @override
+  Future<void> acceptInvitation(String invitationId) {
+    // TODO: implement acceptInvitation
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> declineInvitation(String invitationId) {
+    // TODO: implement declineInvitation
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> sendInvitation(String email) {
+    // TODO: implement sendInvitation
+    throw UnimplementedError();
   }
 }

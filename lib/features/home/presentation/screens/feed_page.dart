@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:futbolitonew/common/domain/entities/color_foundation_entity.dart';
 import 'package:futbolitonew/common/domain/entities/padding_foundation_entity.dart';
 import 'package:futbolitonew/common/domain/entities/spacing_foundation_entity.dart';
+import 'package:futbolitonew/common/presentation/screens/loading_fullscreen/loading_fullscreen.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/avatar/avatar_foundation_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/card/card_footer_with_actions.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/card/card_header.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/card/card_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/button/button_foundation_widget.dart';
 import 'package:futbolitonew/common/presentation/widgets/foundation/scaffold/scaffold_content_foundation_widget.dart';
-import 'package:futbolitonew/core/di/register_dependencies.dart';
 import 'package:futbolitonew/features/auth/presentation/providers/auth_provider.dart';
-import 'package:futbolitonew/features/home/data/datasources/remote/remote_datasource.dart';
+import 'package:futbolitonew/features/home/presentation/providers/invitation_friend/invitations_provider.dart';
 
 class FeedPage extends ConsumerWidget {
   const FeedPage({super.key});
@@ -19,49 +18,36 @@ class FeedPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final user = ref.watch(authProvider).value;
-    final invitations = getIt<InvitationsRemoteDataSource>()
-        .fetchPendingFriendRequests(userId: user!.id, email: user.email)
-        .then((value) {
-          return value;
-        });
+    final invitations = ref.watch(invitationsProvider);
 
-    return ScaffoldContent(
-      padding: PaddingFoundation.md.all,
-      onRefresh: () async {
-        await Future.delayed(const Duration(seconds: 2));
-      },
-      child: Column(
-        crossAxisAlignment: .start,
-        spacing: SpacingFoundation.md.value,
-        children: [
-          FutureBuilder<List<Map<String, dynamic>>>(
-            future: invitations,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(
-                  child: Text('No hay solicitudes de amistad pendientes.'),
-                );
-              } else {
-                final requests = snapshot.data!;
-                return Column(
-                  children: requests.map((request) {
-                    final sender = request['sender'];
-                    return CardFriendRequest(
-                      name: sender['display_name'] ?? 'Nombre Desconocido',
-                      email: sender['email'] ?? 'Email Desconocido',
-                      imageUrl: sender['photo_url'],
-                    );
-                  }).toList(),
-                );
-              }
-            },
-          ),
-        ],
+    return invitations.when(
+      data: (data) => ScaffoldContent(
+        padding: PaddingFoundation.md.all,
+        onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 2));
+        },
+        child: Column(
+          crossAxisAlignment: .start,
+          spacing: SpacingFoundation.md.value,
+          children: [
+            if (data.pendingRequests.isEmpty)
+              const Center(
+                child: Text('No hay solicitudes de amistad pendientes.'),
+              )
+            else
+              ...data.pendingRequests.map(
+                (invitation) => CardFriendRequest(
+                  invitationId: invitation.id,
+                  name: invitation.displayName,
+                  email: invitation.email,
+                  imageUrl: invitation.photoUrl,
+                ),
+              ),
+          ],
+        ),
       ),
+      error: (error, stackTrace) => Center(child: Text('Error: $error')),
+      loading: () => LoadingFullScreen(),
     );
   }
 }
@@ -69,11 +55,13 @@ class FeedPage extends ConsumerWidget {
 class CardFriendRequest extends StatelessWidget {
   const CardFriendRequest({
     super.key,
+    required this.invitationId,
     required this.name,
     required this.email,
     this.imageUrl,
   });
 
+  final String invitationId;
   final String name;
   final String email;
 
