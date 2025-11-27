@@ -11,6 +11,7 @@ class MatchesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ScaffoldContent(
+      onRefresh: () => Future.delayed(const Duration(seconds: 5)),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

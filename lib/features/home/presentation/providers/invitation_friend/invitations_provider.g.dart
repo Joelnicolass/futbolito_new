@@ -33,7 +33,7 @@ final class InvitationsProvider
   Invitations create() => Invitations();
 }
 
-String _$invitationsHash() => r'133ecccec84fa864adaa98893b662cf4f4554f0b';
+String _$invitationsHash() => r'e01352988d175736908c545d948ffbfcb3a22699';
 
 abstract class _$Invitations extends $AsyncNotifier<InvitationsState> {
   FutureOr<InvitationsState> build();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum SpacingFoundation { xs, sm, md, lg, xl }
+enum SpacingFoundation { xs, sm, md, lg, xl, xxl }
 
 extension SpacingExtension on SpacingFoundation {
   double get value {
@@ -15,6 +15,8 @@ extension SpacingExtension on SpacingFoundation {
         return 24.0;
       case SpacingFoundation.xl:
         return 32.0;
+      case SpacingFoundation.xxl:
+        return 82.0;
     }
   }
 }

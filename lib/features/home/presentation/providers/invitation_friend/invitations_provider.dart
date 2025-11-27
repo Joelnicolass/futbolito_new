@@ -24,4 +24,22 @@ class Invitations extends _$Invitations {
     else
       return InvitationsState(pendingRequests: requests);
   }
+
+  Future<void> refreshInvitationsFriend() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final auth = ref.read(authProvider);
+      final usecase = getIt<GetAllFirendRequestsUsecase>();
+
+      final requests = await usecase(
+        email: auth.value!.email,
+        userId: auth.value!.id,
+      );
+
+      if (requests.isEmpty)
+        return InvitationsState();
+      else
+        return InvitationsState(pendingRequests: requests);
+    });
+  }
 }

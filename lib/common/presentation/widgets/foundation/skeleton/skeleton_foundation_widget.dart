@@ -8,7 +8,7 @@ class SkeletonFoundation extends StatelessWidget {
     this.height,
     this.baseColor = Colors.grey,
     this.highlightColor = Colors.white70,
-    this.shape,
+    this.shape = .rectangle,
     this.radius,
   });
 
